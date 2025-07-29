@@ -1,0 +1,854 @@
+[
+  {
+    "filename": "RAGNAROK.jpg",
+    "name": "RAGNAROK",
+    "category": "intense",
+    "primaryFlavor": "spice",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 9,
+      "complexity": 8,
+      "creaminess": 0,
+      "spiciness": 6,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 40
+  },
+  {
+    "filename": "RED OIL.jpg",
+    "name": "RED OIL",
+    "category": "mixed",
+    "primaryFlavor": "mixed",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 7,
+      "complexity": 5,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "SHIGERY.jpg",
+    "name": "SHIGERY",
+    "category": "mixed",
+    "primaryFlavor": "mixed",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 5,
+      "complexity": 5,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "SHIVA.jpg",
+    "name": "SHIVA",
+    "category": "intense",
+    "primaryFlavor": "spice",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 9,
+      "complexity": 8,
+      "creaminess": 0,
+      "spiciness": 6,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 40
+  },
+  {
+    "filename": "SORBETO.jpg",
+    "name": "SORBETO",
+    "category": "fruit",
+    "primaryFlavor": "fruit",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 8,
+      "intensity": 6,
+      "complexity": 4,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "cream",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense",
+        "traditional"
+      ],
+      "neutral": [
+        "mixed"
+      ]
+    },
+    "recommendedPercentage": 55
+  },
+  {
+    "filename": "TIKTAKTOK.jpg",
+    "name": "TIKTAKTOK",
+    "category": "fresh",
+    "primaryFlavor": "menthol",
+    "characteristics": {
+      "mentholLevel": 7,
+      "sweetness": 5,
+      "intensity": 5,
+      "complexity": 5,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 8,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "TOSHIMORA.jpg",
+    "name": "TOSHIMORA",
+    "category": "mixed",
+    "primaryFlavor": "mixed",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 5,
+      "complexity": 5,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "URAKEN.jpg",
+    "name": "URAKEN",
+    "category": "intense",
+    "primaryFlavor": "spice",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 9,
+      "complexity": 8,
+      "creaminess": 0,
+      "spiciness": 6,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 40
+  },
+  {
+    "filename": "YAMAGUMI.jpg",
+    "name": "YAMAGUMI",
+    "category": "traditional",
+    "primaryFlavor": "tobacco",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 6,
+      "complexity": 7,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 8
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "YOKO.jpg",
+    "name": "YOKO",
+    "category": "fruit",
+    "primaryFlavor": "fruit",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 8,
+      "intensity": 6,
+      "complexity": 4,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "cream",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense",
+        "traditional"
+      ],
+      "neutral": [
+        "mixed"
+      ]
+    },
+    "recommendedPercentage": 55
+  },
+  {
+    "filename": "remix funky.jpg",
+    "name": "remix funky",
+    "category": "fruit",
+    "primaryFlavor": "fruit",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 8,
+      "intensity": 6,
+      "complexity": 4,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "cream",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense",
+        "traditional"
+      ],
+      "neutral": [
+        "mixed"
+      ]
+    },
+    "recommendedPercentage": 55
+  },
+  {
+    "filename": "BOLDY SHIGERY.jpg",
+    "name": "BOLDY SHIGERY",
+    "category": "creamy",
+    "primaryFlavor": "cream",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 6,
+      "intensity": 5,
+      "complexity": 5,
+      "creaminess": 8,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0,
+      "smoothness": 9
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "GORILA-RAW.jpg",
+    "name": "GORILA-RAW",
+    "category": "creamy",
+    "primaryFlavor": "cream",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 6,
+      "intensity": 8,
+      "complexity": 5,
+      "creaminess": 8,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0,
+      "smoothness": 9
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 40
+  },
+  {
+    "filename": "GORILA-RUGGED.jpg",
+    "name": "GORILA-RUGGED",
+    "category": "creamy",
+    "primaryFlavor": "cream",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 6,
+      "intensity": 7,
+      "complexity": 5,
+      "creaminess": 8,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0,
+      "smoothness": 9
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "HADES.jpg",
+    "name": "HADES",
+    "category": "intense",
+    "primaryFlavor": "spice",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 9,
+      "complexity": 8,
+      "creaminess": 0,
+      "spiciness": 6,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 40
+  },
+  {
+    "filename": "HAISENBERG.jpg",
+    "name": "HAISENBERG",
+    "category": "traditional",
+    "primaryFlavor": "tobacco",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 6,
+      "complexity": 7,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 8
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "HIZAGIRI.jpg",
+    "name": "HIZAGIRI",
+    "category": "traditional",
+    "primaryFlavor": "tobacco",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 6,
+      "complexity": 7,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 8
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "LUNA.jpg",
+    "name": "LUNA",
+    "category": "fruit",
+    "primaryFlavor": "fruit",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 8,
+      "intensity": 6,
+      "complexity": 4,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "cream",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense",
+        "traditional"
+      ],
+      "neutral": [
+        "mixed"
+      ]
+    },
+    "recommendedPercentage": 55
+  },
+  {
+    "filename": "LYCAN ORIGNAL.jpg",
+    "name": "LYCAN ORIGNAL",
+    "category": "creamy",
+    "primaryFlavor": "cream",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 6,
+      "intensity": 5,
+      "complexity": 5,
+      "creaminess": 8,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0,
+      "smoothness": 9
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "LYCAN PINK.jpg",
+    "name": "LYCAN PINK",
+    "category": "creamy",
+    "primaryFlavor": "cream",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 8,
+      "intensity": 5,
+      "complexity": 5,
+      "creaminess": 8,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0,
+      "smoothness": 9
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 55
+  },
+  {
+    "filename": "MER.jpg",
+    "name": "MER",
+    "category": "fruit",
+    "primaryFlavor": "fruit",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 8,
+      "intensity": 6,
+      "complexity": 4,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "cream",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense",
+        "traditional"
+      ],
+      "neutral": [
+        "mixed"
+      ]
+    },
+    "recommendedPercentage": 55
+  },
+  {
+    "filename": "MINASAWA.jpg",
+    "name": "MINASAWA",
+    "category": "fresh",
+    "primaryFlavor": "menthol",
+    "characteristics": {
+      "mentholLevel": 7,
+      "sweetness": 5,
+      "intensity": 5,
+      "complexity": 5,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 8,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "MWASHI.jpg",
+    "name": "MWASHI",
+    "category": "fresh",
+    "primaryFlavor": "menthol",
+    "characteristics": {
+      "mentholLevel": 7,
+      "sweetness": 5,
+      "intensity": 5,
+      "complexity": 5,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 8,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  },
+  {
+    "filename": "ONI.jpg",
+    "name": "ONI",
+    "category": "intense",
+    "primaryFlavor": "spice",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 9,
+      "complexity": 8,
+      "creaminess": 0,
+      "spiciness": 6,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 40
+  },
+  {
+    "filename": "PHONIX.jpg",
+    "name": "PHONIX",
+    "category": "intense",
+    "primaryFlavor": "spice",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 9,
+      "complexity": 8,
+      "creaminess": 0,
+      "spiciness": 6,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 40
+  },
+  {
+    "filename": "concentrate-rugged-go-rilla-temple-30-ml.jpg",
+    "name": "concentrate-rugged-go-rilla-temple-30-ml",
+    "category": "mixed",
+    "primaryFlavor": "mixed",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 5,
+      "intensity": 11,
+      "complexity": 5,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 40
+  },
+  {
+    "filename": "funky-1-litre-remix.jpg",
+    "name": "funky-1-litre-remix",
+    "category": "fruit",
+    "primaryFlavor": "fruit",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 8,
+      "intensity": 8,
+      "complexity": 4,
+      "creaminess": 0,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "cream",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense",
+        "traditional"
+      ],
+      "neutral": [
+        "mixed"
+      ]
+    },
+    "recommendedPercentage": 45
+  },
+  {
+    "filename": "lycan red.jpg",
+    "name": "lycan red",
+    "category": "creamy",
+    "primaryFlavor": "cream",
+    "characteristics": {
+      "mentholLevel": 0,
+      "sweetness": 6,
+      "intensity": 7,
+      "complexity": 5,
+      "creaminess": 8,
+      "spiciness": 0,
+      "freshness": 0,
+      "traditional": 0,
+      "smoothness": 9
+    },
+    "compatibility": {
+      "compatible": [
+        "fruit",
+        "creamy",
+        "fresh"
+      ],
+      "incompatible": [
+        "intense"
+      ],
+      "neutral": [
+        "traditional"
+      ]
+    },
+    "recommendedPercentage": 50
+  }
+]

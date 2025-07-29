@@ -1,0 +1,3 @@
+export const ALL_FRUITS = [
+  'Apple','Apricot','Avocado','Banana','Blackberry','Blueberry','Boysenberry','Cantaloupe','Cherry','Clementine','Coconut','Cranberry','Currant','Date','Dragonfruit','Durian','Elderberry','Fig','Goji Berry','Gooseberry','Grape','Grapefruit','Guava','Honeydew','Jackfruit','Jujube','Kiwi','Kumquat','Lemon','Lime','Lychee','Mandarin','Mango','Mangosteen','Mulberry','Nectarine','Orange','Papaya','Passionfruit','Peach','Pear','Persimmon','Pineapple','Plum','Pomegranate','Pomelo','Quince','Raspberry','Red Currant','Starfruit','Strawberry','Tangerine','Tomato','Ugli Fruit','Watermelon' // add more if desired
+]; 

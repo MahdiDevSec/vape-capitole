@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    
+    /* Light theme colors */
+    --color-primary: 245 158 11;    /* amber-500 */
+    --color-primary-dark: 217 119 6;  /* amber-600 */
+    --color-background: 255 255 255;  /* white */
+    --color-surface: 249 250 251;     /* gray-50 */
+    --color-text: 17 24 39;           /* gray-900 */
+    --color-text-secondary: 107 114 128; /* gray-500 */
+    --color-border: 229 231 235;      /* gray-200 */
+  }
+
+  .dark {
+    --color-primary: 245 158 11;      /* amber-500 */
+    --color-primary-dark: 217 119 6;  /* amber-600 */
+    --color-background: 17 24 39;     /* gray-900 */
+    --color-surface: 31 41 55;        /* gray-800 */
+    --color-text: 243 244 246;        /* gray-100 */
+    --color-text-secondary: 156 163 175; /* gray-400 */
+    --color-border: 75 85 99;         /* gray-600 */
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-background text-text transition-colors duration-200 bg-page;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  [dir="rtl"] {
+    text-align: right;
+  }
+
+  [dir="ltr"] {
+    text-align: left;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark;
+  }
+
+  .btn-secondary {
+    @apply bg-surface text-text hover:bg-primary/10;
+  }
+
+  .store-card {
+    @apply bg-background rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 border border-border;
+  }
+
+  .nav-link {
+    @apply text-text-secondary hover:text-primary transition-colors duration-200;
+  }
+
+  .input {
+    @apply bg-surface border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50;
+  }
+
+  .card {
+    @apply bg-background border border-border rounded-xl shadow-lg transition-shadow duration-300 hover:shadow-xl;
+  }
+
+  .dropdown {
+    @apply bg-background border border-border rounded-lg shadow-lg py-1;
+  }
+
+  .dropdown-item {
+    @apply px-4 py-2 hover:bg-primary/10 cursor-pointer transition-colors;
+  }
+
+  /* Responsive utilities */
+  .container-responsive {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .text-responsive {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+  
+  .heading-responsive {
+    @apply text-2xl sm:text-3xl lg:text-4xl xl:text-5xl;
+  }
+  
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8;
+  }
+  
+  .grid-responsive-sm {
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4;
+  }
+  
+  .section-padding {
+    @apply py-8 sm:py-12 lg:py-16;
+  }
+  
+  .section-margin {
+    @apply my-8 sm:my-12 lg:my-16;
+  }
+
+  /* Text truncation */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Loading spinner */
+  .loading-spinner {
+    @apply animate-spin rounded-full border-2 border-gray-300 border-t-primary;
+  }
+}
+
+@layer utilities {
+  .bg-page {
+    @apply bg-gradient-to-br from-gray-50 via-white to-gray-200 dark:from-black dark:to-gray-800;
+  }
+  .btn-main {
+    @apply bg-gradient-to-r from-gray-800 to-black text-white rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  /* Custom scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(156 163 175) transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgb(156 163 175);
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(107 114 128);
+  }
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
