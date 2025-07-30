@@ -1,10 +1,18 @@
 {
+  "name": "site-vape-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix back-end\" \"npm run dev --prefix front-end\"",
+    "dev:back": "npm run dev --prefix back-end",
+    "dev:front": "npm run dev --prefix front-end"
+  },
   "devDependencies": {
     "@types/express-rate-limit": "^6.0.2",
     "@types/helmet": "^4.0.0",
     "@types/multer": "^2.0.0",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
+    "concurrently": "^9.2.0",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2"
   },

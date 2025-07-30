@@ -1,4 +1,5 @@
 export interface Product {
+  stores?: { _id: string; name: string }[];
   _id: string;
   name: string;
   description: string;
@@ -22,6 +23,7 @@ export interface Store {
 }
 
 export interface Liquid {
+  stores?: { _id: string; name: string }[];
   _id: string;
   name: string;
   brand: string;

@@ -449,6 +449,16 @@ export const updateLiquid = async (req: Request, res: Response) => {
       }
     }
     
+    // معالجة حقل stores - تحويل من JSON string إلى array
+    if (typeof data.stores === 'string') {
+      try {
+        data.stores = JSON.parse(data.stores);
+      } catch (e) {
+        console.error('Error parsing stores:', e);
+        data.stores = [];
+      }
+    }
+    
     // تحويل الحقول الرقمية من نص إلى رقم
     ['price','nicotineLevel','volume','mentholLevel','inStock'].forEach((field)=>{
       if (data[field]!==undefined) data[field] = Number(data[field]);

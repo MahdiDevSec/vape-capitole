@@ -2,49 +2,46 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface ThemeContextType {
   theme: 'light' | 'dark';
-  language: 'en' | 'ar';
   toggleTheme: () => void;
-  toggleLanguage: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const [language, setLanguage] = useState<'en' | 'ar'>('en');
 
   useEffect(() => {
-    // Load theme and language from localStorage
+    // Load theme from localStorage
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
-    const savedLanguage = localStorage.getItem('language') as 'en' | 'ar';
-    
     if (savedTheme) setTheme(savedTheme);
-    if (savedLanguage) setLanguage(savedLanguage);
   }, []);
 
   useEffect(() => {
     // Apply theme to document
-    document.documentElement.classList.toggle('dark', theme === 'dark');
+    const root = document.documentElement;
+    const body = document.body;
+    
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      body.classList.add('dark');
+      body.style.backgroundColor = '#1a1a1a';
+      body.style.color = '#ffffff';
+    } else {
+      root.classList.remove('dark');
+      body.classList.remove('dark');
+      body.style.backgroundColor = '#ffffff';
+      body.style.color = '#000000';
+    }
+    
     localStorage.setItem('theme', theme);
   }, [theme]);
-
-  useEffect(() => {
-    // Apply language to document
-    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = language;
-    localStorage.setItem('language', language);
-  }, [language]);
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
-  const toggleLanguage = () => {
-    setLanguage(prev => prev === 'en' ? 'ar' : 'en');
-  };
-
   return (
-    <ThemeContext.Provider value={{ theme, language, toggleTheme, toggleLanguage }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

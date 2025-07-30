@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import axios from 'axios';
 import { useLanguage } from '../../contexts/LanguageContext';
+import Select from 'react-select';
 
 interface Product {
   _id: string;
@@ -11,7 +12,7 @@ interface Product {
   category: string;
   image: string;
   inStock: number;
-  store: string;
+  stores: string[];
   nicotineLevel?: number;
   volume?: number;
   baseRatio?: { vg: number; pg: number };
@@ -33,15 +34,134 @@ const AdminProducts = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [error, setError] = useState('');
 
+  // الكشف عن الوضع المظلم
+  const isDarkMode = document.documentElement.classList.contains('dark');
+
   const [editForm, setEditForm] = useState({
     name: '',
     description: '',
     price: 0,
     category: '',
     inStock: 0,
-    store: '',
+    stores: [] as string[],
     image: ''
   });
+
+  // تحويل المتاجر إلى تنسيق react-select
+  const storeOptions = stores.map(store => ({
+    value: store._id,
+    label: store.name,
+  }));
+
+  // تخصيص ألوان react-select
+  const customStyles = {
+    control: (provided: any, state: any) => ({
+      ...provided,
+      backgroundColor: 'white',
+      borderColor: state.isFocused ? '#3b82f6' : '#d1d5db',
+      boxShadow: state.isFocused ? '0 0 0 1px #3b82f6' : 'none',
+      '&:hover': {
+        borderColor: '#3b82f6',
+      },
+    }),
+    multiValue: (provided: any) => ({
+      ...provided,
+      backgroundColor: '#3b82f6',
+      color: 'white',
+    }),
+    multiValueLabel: (provided: any) => ({
+      ...provided,
+      color: 'white',
+    }),
+    multiValueRemove: (provided: any) => ({
+      ...provided,
+      color: 'white',
+      '&:hover': {
+        backgroundColor: '#1d4ed8',
+        color: 'white',
+      },
+    }),
+    option: (provided: any, state: any) => ({
+      ...provided,
+      backgroundColor: state.isSelected ? '#3b82f6' : state.isFocused ? '#dbeafe' : 'white',
+      color: state.isSelected ? 'white' : '#374151',
+      '&:hover': {
+        backgroundColor: state.isSelected ? '#3b82f6' : '#dbeafe',
+      },
+    }),
+    menu: (provided: any) => ({
+      ...provided,
+      backgroundColor: 'white',
+      border: '1px solid #d1d5db',
+      borderRadius: '0.375rem',
+      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+    }),
+    input: (provided: any) => ({
+      ...provided,
+      color: '#374151',
+    }),
+    placeholder: (provided: any) => ({
+      ...provided,
+      color: '#9ca3af',
+    }),
+  };
+
+  // تخصيص ألوان react-select للوضع المظلم
+  const darkStyles = {
+    control: (provided: any, state: any) => ({
+      ...provided,
+      backgroundColor: '#374151',
+      borderColor: state.isFocused ? '#3b82f6' : '#4b5563',
+      boxShadow: state.isFocused ? '0 0 0 1px #3b82f6' : 'none',
+      '&:hover': {
+        borderColor: '#3b82f6',
+      },
+    }),
+    multiValue: (provided: any) => ({
+      ...provided,
+      backgroundColor: '#3b82f6',
+      color: 'white',
+    }),
+    multiValueLabel: (provided: any) => ({
+      ...provided,
+      color: 'white',
+    }),
+    multiValueRemove: (provided: any) => ({
+      ...provided,
+      color: 'white',
+      '&:hover': {
+        backgroundColor: '#1d4ed8',
+        color: 'white',
+      },
+    }),
+    option: (provided: any, state: any) => ({
+      ...provided,
+      backgroundColor: state.isSelected ? '#3b82f6' : state.isFocused ? '#4b5563' : '#374151',
+      color: state.isSelected ? 'white' : '#d1d5db',
+      '&:hover': {
+        backgroundColor: state.isSelected ? '#3b82f6' : '#4b5563',
+      },
+    }),
+    menu: (provided: any) => ({
+      ...provided,
+      backgroundColor: '#374151',
+      border: '1px solid #4b5563',
+      borderRadius: '0.375rem',
+      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2)',
+    }),
+    input: (provided: any) => ({
+      ...provided,
+      color: '#d1d5db',
+    }),
+    placeholder: (provided: any) => ({
+      ...provided,
+      color: '#9ca3af',
+    }),
+    singleValue: (provided: any) => ({
+      ...provided,
+      color: '#d1d5db',
+    }),
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -74,7 +194,7 @@ const AdminProducts = () => {
       price: product.price,
       category: product.category,
       inStock: product.inStock,
-      store: product.store,
+      stores: product.stores || [],
       image: product.image || ''
     });
     setImageFile(null);
@@ -101,7 +221,7 @@ const AdminProducts = () => {
       formData.append('price', String(editForm.price));
       formData.append('category', editForm.category);
       formData.append('inStock', String(editForm.inStock));
-      formData.append('store', editForm.store);
+      formData.append('stores', JSON.stringify(editForm.stores));
       if (imageFile) {
         formData.append('image', imageFile);
       }
@@ -135,7 +255,7 @@ const AdminProducts = () => {
               price: 0,
               category: '',
               inStock: 0,
-              store: '',
+              stores: [],
               image: ''
             });
             setIsEditing(true);
@@ -214,7 +334,24 @@ const AdminProducts = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                    {stores.find(s => s._id === product.store)?.name || product.store}
+                    <div className="flex flex-wrap gap-1">
+                      {product.stores.map(storeId => {
+                        const store = stores.find(s => s._id === storeId);
+                        return store ? (
+                          <span
+                            key={storeId}
+                            className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                          >
+                            {store.name}
+                          </span>
+                        ) : null;
+                      })}
+                      {product.stores.length === 0 && (
+                        <span className="text-gray-400 dark:text-gray-500 text-xs">
+                          {t('No stores assigned')}
+                        </span>
+                      )}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button
@@ -309,19 +446,33 @@ const AdminProducts = () => {
                   <option value="resistors">{t('category.resistors')}</option>
                 </select>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">{t('Store')}</label>
-                <select
-                  value={editForm.store}
-                  onChange={(e) => setEditForm({ ...editForm, store: e.target.value })}
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 dark:bg-gray-700"
-                  required
-                >
-                  <option value="">{t('Select Store')}</option>
-                  {stores.map(store => (
-                    <option key={store._id} value={store._id}>{store.name}</option>
-                  ))}
-                </select>
+              {/* حقل اختيار المتاجر */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                  {t('Stores')}
+                </label>
+                <Select
+                  isMulti
+                  options={storeOptions}
+                  value={storeOptions.filter(opt => editForm.stores.includes(opt.value))}
+                  onChange={(selected) => {
+                    setEditForm(f => ({
+                      ...f,
+                      stores: selected ? selected.map(opt => opt.value) : [],
+                    }));
+                  }}
+                  styles={isDarkMode ? darkStyles : customStyles}
+                  className="mb-4"
+                  classNamePrefix="react-select"
+                  placeholder={t('Select Stores')}
+                  noOptionsMessage={() => t('No stores available')}
+                  isClearable
+                  isSearchable
+                  closeMenuOnSelect={false}
+                  blurInputOnSelect={false}
+                  isOptionDisabled={() => false}
+                  maxMenuHeight={200}
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1">{t('Image')}</label>

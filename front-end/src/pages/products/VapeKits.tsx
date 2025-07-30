@@ -112,7 +112,12 @@ const VapeKits = () => {
                 </Link>
                 <div className="mt-4 flex items-center justify-between">
                   <span className="text-lg font-bold text-blue-600">{product.price?.toLocaleString('ar-DZ')} دج</span>
-                  <span className="text-sm">متوفر: {product.inStock} قطعة</span>
+                  <span className="text-sm dark:text-gray-300">متوفر: {product.inStock} قطعة</span>
+                    {product.stores && (
+                      <span className="text-xs text-gray-500 dark:text-gray-400 block mt-1">
+                        متوفر في الفروع: {product.stores.map(s=>s.name).join(', ')}
+                      </span>
+                    )}
                 </div>
                 <button className="mt-4 w-full btn btn-primary flex items-center justify-center gap-2" onClick={() => dispatch({ type: 'ADD_ITEM', payload: product })}>
                   <FaSmoking />

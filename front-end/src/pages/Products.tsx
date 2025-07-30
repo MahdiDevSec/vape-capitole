@@ -18,6 +18,7 @@ import { useCart } from '../contexts/CartContext';
 import FavoriteButton from '../components/FavoriteButton';
 import { useLanguage } from '../contexts/LanguageContext';
 import axios from 'axios';
+import { formatPrice } from '../utils/currency';
 
 const categories = [
   { id: 'vapekits', name: 'category.vape-kits', icon: FaSmoking, color: 'bg-blue-500' },
@@ -100,7 +101,7 @@ const Products = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-gray-600">{t('products.loading')}</p>
+          <p className="text-gray-600 dark:text-gray-300">{t('products.loading')}</p>
         </div>
       </div>
     );
@@ -126,7 +127,7 @@ const Products = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-4">{t('products.title')}</h1>
-        <p className="text-lg text-gray-600">{t('products.all')}</p>
+        <p className="text-lg text-gray-600 dark:text-gray-300">{t('products.all')}</p>
       </div>
 
       {/* Categories Grid with Icons */}
@@ -176,7 +177,7 @@ const Products = () => {
           </select>
         </div>
         
-        <div className="text-sm text-gray-600">
+        <div className="text-sm text-gray-600 dark:text-gray-300">
           {filteredAndSortedProducts.length} {t('common.pieces')}
         </div>
       </div>
@@ -185,35 +186,42 @@ const Products = () => {
       {filteredAndSortedProducts.length === 0 ? (
         <div className="text-center py-12">
           <FaBox className="text-6xl text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-600 text-lg">{t('products.noProducts')}</p>
+          <p className="text-gray-600 dark:text-gray-300 text-lg">{t('products.noProducts')}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredAndSortedProducts.map((product) => (
-            <div key={product._id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div 
+              key={product._id} 
+              className="modern-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+            >
               <div className="relative">
-                <img
-                  src={getSrc(product.image)}
+                <img 
+                  src={getSrc(product.image)} 
                   alt={product.name}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute top-2 right-2">
                   <FavoriteButton item={product} />
                 </div>
-                {product.inStock === 0 && (
-                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">{t('product.outOfStock')}</span>
-                  </div>
+                {product.inStock > 0 ? (
+                  <span className="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold vape-pulse">
+                    {t('product.inStock')}
+                  </span>
+                ) : (
+                  <span className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                    {t('product.outOfStock')}
+                  </span>
                 )}
               </div>
               
               <div className="p-4">
                 <h3 className="font-semibold text-lg mb-2 line-clamp-2">{product.name}</h3>
-                <p className="text-gray-600 text-sm mb-3 line-clamp-2">{product.description}</p>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 line-clamp-2">{product.description}</p>
                 
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-lg font-bold text-primary">
-                    {product.price} {t('common.currency')}
+                    {formatPrice(product.price, language)}
                   </span>
                   <span className={`text-sm px-2 py-1 rounded ${
                     product.inStock > 0 
@@ -224,6 +232,9 @@ const Products = () => {
                       ? `${t('product.inStock')}: ${product.inStock}` 
                       : t('product.outOfStock')
                     }
+                  </span>
+                  <span className="text-xs text-gray-500 block mt-1">
+                    {t('product.availableInStores')}: {product.stores ? product.stores.length : 0}
                   </span>
                 </div>
                 

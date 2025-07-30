@@ -6,6 +6,7 @@ import Home from '../pages/Home';
 import Products from '../pages/Products';
 import Stores from '../pages/Stores';
 import StoreDetail from '../pages/StoreDetail';
+import StoreProducts from '../pages/StoreProducts';
 import MixLiquids from '../pages/MixLiquids';
 import Liquids from '../pages/Liquids';
 import Favorites from '../pages/Favorites';
@@ -51,6 +52,7 @@ export const router = createBrowserRouter([
       { path: 'products/resistors', element: <Resistors /> },
       { path: 'stores', element: <Stores /> },
       { path: 'stores/:storeId', element: <StoreDetail /> },
+      { path: 'stores/:storeId/products', element: <StoreProducts /> },
       { path: 'liquids', element: <Liquids /> },
       { path: 'mix', element: <MixLiquids /> },
       { path: 'favorites', element: <Favorites /> },

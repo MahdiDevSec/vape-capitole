@@ -54,7 +54,6 @@ const translations = {
     'store.location': 'الموقع',
     'store.contact': 'التواصل',
     'store.directions': 'الاتجاهات',
-    'store.viewProducts': 'عرض المنتجات',
     'store.workingHours': 'ساعات العمل',
     
     // Theme
@@ -190,31 +189,11 @@ const translations = {
     'mix.compatibility': 'التوافق',
     'mix.selectAllLiquids': 'يرجى تحديد جميع السوائل',
     'mix.analysisFailed': 'فشل في تحليل الخلطة',
-    'mix.mixAnalysis': 'تحليل الخلطة',
-    'mix.estimatedProfile': 'الملف الشخصي المتوقع',
-    'mix.menthol': 'المنثول',
-    'mix.sweet': 'الحلاوة',
-    'mix.complex': 'التعقيد',
-    'mix.intensity': 'الشدة',
-    'mix.warnings': 'تحذيرات',
-    'mix.recommendations': 'توصيات',
-    'mix.excellent': 'ممتاز',
-    'mix.good': 'جيد',
-    'mix.fair': 'مقبول',
-    'mix.poor': 'ضعيف',
     'mix.noLiquidsAvailable': 'لا توجد سوائل متاحة',
     'mix.contactAdmin': 'يرجى التواصل مع الإدارة',
     'mix.noLiquidsInDatabase': 'لا توجد سوائل في قاعدة البيانات',
     'mix.adminMustAddLiquids': 'يجب على الإدارة إضافة سوائل أولاً',
     'mix.suggestionsFailed': 'فشل في الحصول على الاقتراحات',
-    'mix.gettingSuggestions': 'جاري الحصول على الاقتراحات...',
-    'mix.suggestedMixes': 'الخلطات المقترحة',
-    'mix.tellUsWhat': 'أخبرنا ماذا تريد',
-    'mix.desiredFlavor': 'النكهة المطلوبة',
-    'mix.mentholLevel': 'مستوى المنثول',
-    'mix.sweetness': 'الحلاوة',
-    'mix.complexity': 'التعقيد',
-    'mix.getSuggestions': 'احصل على اقتراحات',
     
     // Products
     'products.title': 'منتجاتنا',
@@ -370,6 +349,9 @@ const translations = {
     'common.notAvailable': 'غير متوفر',
     'common.outOfStock': 'نفذ من المخزون',
     'common.inStock': 'متوفر في المخزون',
+    'common.selectStores': 'اختر المتاجر',
+    'common.noStoresAvailable': 'لا توجد متاجر متاحة',
+    'common.noStoresAssigned': 'لا توجد متاجر معينة',
   },
   en: {
     // Navigation
@@ -411,7 +393,6 @@ const translations = {
     'store.location': 'Location',
     'store.contact': 'Contact',
     'store.directions': 'Directions',
-    'store.viewProducts': 'View Products',
     'store.workingHours': 'Working Hours',
     
     // Theme
@@ -547,18 +528,6 @@ const translations = {
     'mix.compatibility': 'Compatibility',
     'mix.selectAllLiquids': 'Please select all liquids',
     'mix.analysisFailed': 'Mix analysis failed',
-    'mix.mixAnalysis': 'Mix Analysis',
-    'mix.estimatedProfile': 'Estimated Profile',
-    'mix.menthol': 'Menthol',
-    'mix.sweet': 'Sweetness',
-    'mix.complex': 'Complexity',
-    'mix.intensity': 'Intensity',
-    'mix.warnings': 'Warnings',
-    'mix.recommendations': 'Recommendations',
-    'mix.excellent': 'Excellent',
-    'mix.good': 'Good',
-    'mix.fair': 'Fair',
-    'mix.poor': 'Poor',
     
     // Products
     'products.title': 'Our Products',
@@ -717,6 +686,9 @@ const translations = {
     'common.notAvailable': 'Not Available',
     'common.outOfStock': 'Out of Stock',
     'common.inStock': 'In Stock',
+    'common.selectStores': 'Select Stores',
+    'common.noStoresAvailable': 'No stores available',
+    'common.noStoresAssigned': 'No stores assigned',
   },
   fr: {
     // Navigation
@@ -758,7 +730,6 @@ const translations = {
     'store.location': 'Emplacement',
     'store.contact': 'Contact',
     'store.directions': 'Directions',
-    'store.viewProducts': 'Voir les Produits',
     'store.workingHours': 'Heures de Travail',
     
     // Theme
@@ -894,18 +865,6 @@ const translations = {
     'mix.compatibility': 'Compatibilité',
     'mix.selectAllLiquids': 'Veuillez sélectionner tous les liquides',
     'mix.analysisFailed': 'Échec de l\'analyse de mélange',
-    'mix.mixAnalysis': 'Analyse de Mélange',
-    'mix.estimatedProfile': 'Profil Estimé',
-    'mix.menthol': 'Menthol',
-    'mix.sweet': 'Douceur',
-    'mix.complex': 'Complexité',
-    'mix.intensity': 'Intensité',
-    'mix.warnings': 'Avertissements',
-    'mix.recommendations': 'Recommandations',
-    'mix.excellent': 'Excellent',
-    'mix.good': 'Bon',
-    'mix.fair': 'Moyen',
-    'mix.poor': 'Faible',
     'mix.noLiquidsAvailable': 'Aucun liquide disponible pour le moment.',
     'mix.contactAdmin': 'Veuillez contacter l\'administrateur.',
     'mix.noLiquidsInDatabase': 'Aucune liquide trouvée dans la base de données.',
@@ -1068,6 +1027,9 @@ const translations = {
     'common.notAvailable': 'Non Disponible',
     'common.outOfStock': 'Rupture de Stock',
     'common.inStock': 'En Stock',
+    'common.selectStores': 'Sélectionner les Magasins',
+    'common.noStoresAvailable': 'Aucun magasin disponible',
+    'common.noStoresAssigned': 'Aucun magasin assigné',
   }
 };
 

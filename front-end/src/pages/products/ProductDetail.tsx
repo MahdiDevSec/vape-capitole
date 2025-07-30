@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { FaStore, FaShoppingCart } from 'react-icons/fa';
 import type { Product, Store } from '../../types';
+import { formatPrice } from '../../utils/currency';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 const storesData: Store[] = [
@@ -37,7 +38,7 @@ const storesData: Store[] = [
 
 const ProductDetail = () => {
   const { productId } = useParams();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   // سيتم استبدال هذا بجلب البيانات من API
   const product: Product | null = null;
 
@@ -71,7 +72,7 @@ const ProductDetail = () => {
             <p className="text-gray-600">{product.description}</p>
             
             <div className="text-3xl font-bold text-blue-600">
-              {product.price} {t('common.currency')}
+              {formatPrice(product.price, language)}
             </div>
 
             <div className="space-y-4">
@@ -88,7 +89,7 @@ const ProductDetail = () => {
                     >
                       <div className="flex items-center gap-3">
                         <FaStore className="text-blue-600" />
-                        <span>{store.name}</span>
+                        <span className="dark:text-white">{store.name}</span>
                       </div>
                       <span className={inStock ? 'text-green-600' : 'text-red-600'}>
                         {inStock ? t('product.inStock') : t('product.outOfStock')}

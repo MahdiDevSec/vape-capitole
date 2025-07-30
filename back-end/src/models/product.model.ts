@@ -7,7 +7,7 @@ export interface IProduct extends Document {
   category: string;
   image: string;
   inStock: number;
-  store: string;
+  stores: string[];
   nicotineLevel?: number;
   volume?: number;
   baseRatio?: { vg: number; pg: number };
@@ -51,10 +51,10 @@ const productSchema = new Schema<IProduct>({
     min: 0,
     default: 0
   },
-  store: {
+  stores: [{
     type: String,
     required: true
-  },
+  }],
   nicotineLevel: {
     type: Number,
     required: false,

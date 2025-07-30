@@ -1,70 +1,119 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaStore, FaVial, FaShoppingCart } from 'react-icons/fa';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../contexts/ThemeContext';
+import VapeIcon from '../components/VapeIcon';
+import LiquidBottle from '../components/LiquidBottle';
 
 const Home = () => {
   const { t } = useLanguage();
+  const { theme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-page">
-      {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-800 mb-6">
-            {t('home.welcome')} <span className="text-primary">{t('home.vapeCapitole')}</span>
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            {t('home.subtitle')}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/products"
-              className="btn-main px-8 py-3 flex items-center justify-center gap-2"
-            >
-              <FaShoppingCart />
-              {t('home.products')}
-            </Link>
-            <Link
-              to="/liquids"
-              className="btn-main px-8 py-3 flex items-center justify-center gap-2"
-            >
-              <FaVial />
-              {t('home.liquids')}
-            </Link>
+    <div className="relative min-h-screen">
+      {/* Main Content */}
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section className="relative py-20 px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            {/* Animated Vape Icon */}
+            <div className="flex justify-center mb-8">
+              <VapeIcon size="lg" className="vape-float" />
+            </div>
+            
+            <h1 className={`text-5xl md:text-7xl font-bold mb-6 vape-pulse ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+              {t('home.welcome')} <span className="text-yellow-400">{t('home.vapeCapitole')}</span>
+            </h1>
+            
+            <p className={`text-xl md:text-2xl mb-8 max-w-3xl mx-auto ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+              {t('home.discover')}
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                to="/products" 
+                className="vape-btn bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+              >
+                {t('home.products')}
+              </Link>
+              <Link 
+                to="/liquids" 
+                className="vape-btn bg-gradient-to-r from-pink-500 to-red-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:from-pink-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105"
+              >
+                {t('home.liquids')}
+              </Link>
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* Features Section */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-white rounded-lg p-6 shadow-lg text-center">
-            <FaStore className="text-4xl text-primary mx-auto mb-4" />
-            <h3 className="text-xl font-semibold mb-2">{t('home.stores')}</h3>
-            <p className="text-gray-600">{t('home.storesDesc')}</p>
+        <section className="py-16 px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className={`text-3xl md:text-4xl font-bold text-center mb-12 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+              {t('home.quality')}
+            </h2>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Feature 1 */}
+              <div className={`modern-card ${theme === 'dark' ? 'bg-white/10' : 'bg-gray-100/80'} backdrop-blur-sm rounded-xl p-6 text-center`}>
+                <div className="flex justify-center mb-4">
+                  <VapeIcon size="md" />
+                </div>
+                <h3 className={`text-xl font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>أجهزة عالية الجودة</h3>
+                <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>أفضل الأجهزة والملحقات من أشهر العلامات التجارية</p>
+              </div>
+              
+              {/* Feature 2 */}
+              <div className={`modern-card ${theme === 'dark' ? 'bg-white/10' : 'bg-gray-100/80'} backdrop-blur-sm rounded-xl p-6 text-center`}>
+                <div className="flex justify-center mb-4">
+                  <LiquidBottle color="#f093fb" level={85} />
+                </div>
+                <h3 className={`text-xl font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>سوائل مميزة</h3>
+                <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>تشكيلة واسعة من النكهات والسوائل المميزة</p>
+              </div>
+              
+              {/* Feature 3 */}
+              <div className={`modern-card ${theme === 'dark' ? 'bg-white/10' : 'bg-gray-100/80'} backdrop-blur-sm rounded-xl p-6 text-center`}>
+                <div className="flex justify-center mb-4">
+                  <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg vape-glow"></div>
+                </div>
+                <h3 className={`text-xl font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>خدمة مميزة</h3>
+                <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>خدمة عملاء على مدار الساعة ودعم فني متخصص</p>
+              </div>
+            </div>
           </div>
-          <div className="bg-white rounded-lg p-6 shadow-lg text-center">
-            <FaShoppingCart className="text-4xl text-primary mx-auto mb-4" />
-            <h3 className="text-xl font-semibold mb-2">{t('home.products')}</h3>
-            <p className="text-gray-600">{t('home.productsDesc')}</p>
-          </div>
-          <div className="bg-white rounded-lg p-6 shadow-lg text-center">
-            <FaVial className="text-4xl text-primary mx-auto mb-4" />
-            <h3 className="text-xl font-semibold mb-2">{t('home.liquids')}</h3>
-            <p className="text-gray-600">{t('home.liquidsDesc')}</p>
-          </div>
-        </div>
+        </section>
 
-        {/* About Section */}
-        <div className="bg-white rounded-lg p-8 shadow-lg text-center">
-          <h2 className="text-3xl font-bold mb-4">{t('home.discover')}</h2>
-          <p className="text-lg text-gray-600 mb-6">{t('home.quality')}</p>
-          <Link
-            to="/products"
-            className="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            {t('common.view')} {t('home.products')}
-          </Link>
-        </div>
+        {/* Categories Preview */}
+        <section className="py-16 px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className={`text-3xl md:text-4xl font-bold text-center mb-12 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+              {t('home.products')}
+            </h2>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { name: 'Vape Kits', icon: '🔋', color: 'from-blue-500 to-cyan-500' },
+                { name: 'Liquids', icon: '💧', color: 'from-pink-500 to-purple-500' },
+                { name: 'Accessories', icon: '🛠️', color: 'from-green-500 to-emerald-500' },
+                { name: 'Stores', icon: '🏪', color: 'from-orange-500 to-red-500' },
+              ].map((category, index) => (
+                <Link
+                  key={index}
+                  to={`/${category.name.toLowerCase().replace(' ', '-')}`}
+                  className={`modern-card ${theme === 'dark' ? 'bg-white/10' : 'bg-gray-100/80'} backdrop-blur-sm rounded-xl p-6 text-center hover:scale-105 transition-transform duration-300`}
+                >
+                  <div className={`text-4xl mb-4 bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}>
+                    {category.icon}
+                  </div>
+                  <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                    {category.name}
+                  </h3>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

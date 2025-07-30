@@ -5,6 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { ALL_FRUITS } from '../data/fruitList';
 import { useCart } from '../contexts/CartContext';
 import axios from 'axios';
+import { formatPrice } from '../utils/currency';
 
 interface LiquidAnalysis {
   flavorProfile: {
@@ -45,7 +46,7 @@ const Liquids = () => {
   const [selectedFruit, setSelectedFruit] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [showFilters, setShowFilters] = useState(false);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { dispatch } = useCart();
 
   const categories = [
@@ -207,7 +208,7 @@ const Liquids = () => {
         <div className="flex items-center justify-center min-h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">Loading liquids...</p>
+            <p className="text-gray-600 dark:text-gray-300 dark:text-gray-400">Loading liquids...</p>
           </div>
         </div>
       </div>
@@ -219,7 +220,7 @@ const Liquids = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-red-600 mb-4">Error</h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
+          <p className="text-gray-600 dark:text-gray-300 dark:text-gray-400 mb-4">{error}</p>
           <button
             onClick={fetchLiquids}
             className="bg-primary text-white px-6 py-2 rounded-md hover:bg-primary/90"
@@ -237,7 +238,7 @@ const Liquids = () => {
         <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">
           {t('liquids.title')}
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-600 dark:text-gray-300 dark:text-gray-400 max-w-2xl mx-auto">
           Discover our premium e-liquids with smart flavor analysis and mixing recommendations
         </p>
       </div>
@@ -380,7 +381,7 @@ const Liquids = () => {
 
       {/* Results Count */}
       <div className="mb-6">
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-gray-600 dark:text-gray-300 dark:text-gray-400">
           Showing {filteredLiquids.length} of {liquids.length} liquids
         </p>
       </div>
@@ -389,7 +390,7 @@ const Liquids = () => {
       {filteredLiquids.length === 0 ? (
         <div className="text-center py-12">
           <FaFlask className="text-6xl text-gray-400 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">
+          <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-300 dark:text-gray-400 mb-2">
             No liquids found
           </h3>
           <p className="text-gray-500 dark:text-gray-500">
@@ -437,11 +438,11 @@ const Liquids = () => {
                     </span>
                   </div>
 
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 dark:text-gray-400 mb-2">
                     {liquid.brand}
                   </p>
 
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2">
+                  <p className="text-gray-600 dark:text-gray-300 dark:text-gray-400 text-sm mb-3 line-clamp-2">
                     {liquid.description}
                   </p>
 
@@ -450,21 +451,21 @@ const Liquids = () => {
                     <div className="grid grid-cols-3 gap-2 mb-3 text-xs">
                       <div className="text-center">
                         <FaThermometerHalf className="mx-auto mb-1 text-blue-500" />
-                        <span className="text-gray-600 dark:text-gray-400">Menthol</span>
+                        <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400">Menthol</span>
                         <div className="font-bold text-gray-800 dark:text-white">
                           {analysis.flavorProfile.mentholLevel}/10
                         </div>
                       </div>
                       <div className="text-center">
                         <FaCandyCane className="mx-auto mb-1 text-pink-500" />
-                        <span className="text-gray-600 dark:text-gray-400">Sweet</span>
+                        <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400">Sweet</span>
                         <div className="font-bold text-gray-800 dark:text-white">
                           {analysis.flavorProfile.sweetness}/10
                         </div>
                       </div>
                       <div className="text-center">
                         <FaLayerGroup className="mx-auto mb-1 text-purple-500" />
-                        <span className="text-gray-600 dark:text-gray-400">Complex</span>
+                        <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400">Complex</span>
                         <div className="font-bold text-gray-800 dark:text-white">
                           {analysis.flavorProfile.complexity}/10
                         </div>
@@ -474,10 +475,10 @@ const Liquids = () => {
 
                   {/* Specs */}
                   <div className="flex items-center justify-between mb-3 text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">
+                    <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400">
                       {liquid.volume}ml • {liquid.nicotineLevel}mg
                     </span>
-                    <span className="text-gray-600 dark:text-gray-400">
+                    <span className="text-gray-600 dark:text-gray-300 dark:text-gray-400">
                       {liquid.baseRatio.vg}/{liquid.baseRatio.pg}
                     </span>
                   </div>
@@ -485,7 +486,7 @@ const Liquids = () => {
                   {/* Price and Add to Cart */}
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-bold text-primary">
-                      ${liquid.price.toFixed(2)}
+                      {formatPrice(liquid.price, language)}
                     </span>
                     <button
                       onClick={() => addToCart(liquid)}
@@ -495,6 +496,9 @@ const Liquids = () => {
                       <FaPlus />
                       Add
                     </button>
+                  </div>
+                  <div className="text-xs text-gray-500 mt-1">
+                    {t('product.availableInStores')}: {liquid.stores ? liquid.stores.length : 0}
                   </div>
 
                   {/* Stock Status */}

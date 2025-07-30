@@ -65,7 +65,7 @@ const AdminLiquids = () => {
     volume: 30,
     isAvailable: true, // متوفر افتراضيًا
     baseRatio: { vg: 70, pg: 30 },
-    store: '',
+    store: [] as string[],
     image: '',
     // الحقول الجديدة
     fruitTypes: [] as string[],
@@ -151,7 +151,7 @@ const AdminLiquids = () => {
       formData.append('volume', editForm.volume.toString());
       formData.append('baseRatio', JSON.stringify(editForm.baseRatio));
       formData.append('inStock', editForm.isAvailable ? '1' : '0');
-      formData.append('store', editForm.store);
+      formData.append('stores', JSON.stringify(editForm.store));
       formData.append('category', 'fruit'); // إضافة category مطلوب
       formData.append('brand', 'Custom Brand'); // إضافة brand مطلوب
       formData.append('type', editForm.type); // إضافة type مطلوب
@@ -232,7 +232,7 @@ const AdminLiquids = () => {
               volume: 30,
               isAvailable: true,
               baseRatio: { vg: 70, pg: 30 },
-              store: '',
+              store: [] as string[],
               image: '',
               // الحقول الجديدة
               fruitTypes: [] as string[],
@@ -528,7 +528,7 @@ const AdminLiquids = () => {
                 <Select
                   isMulti
                   options={storeOptions}
-                  value={storeOptions.filter(o=>editForm.store.includes(o.value))}
+                  value={storeOptions.filter(o => (editForm.store ?? []).includes(o.value))}
                   onChange={(vals)=> setEditForm({...editForm, store: vals.map(v=>v.value)}) }
                   className="react-select-container text-sm"
                   classNamePrefix="react-select"

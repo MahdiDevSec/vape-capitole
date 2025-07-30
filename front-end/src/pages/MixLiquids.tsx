@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { FaFlask, FaLightbulb, FaStar, FaPlus, FaTrash, FaSearch, FaThermometerHalf, FaCandyCane, FaLayerGroup, FaCheck, FaTimes, FaExclamationTriangle } from 'react-icons/fa';
 import type { Liquid } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../contexts/ThemeContext';
 import axios from 'axios';
 import { rateSuggestion, fetchRatingCounts } from '../services/ratings';
 
@@ -74,6 +75,7 @@ const MixLiquids = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { t } = useLanguage();
+  const { theme } = useTheme();
 
   // Form states for suggestions
   const [suggestionForm, setSuggestionForm] = useState({
@@ -291,27 +293,27 @@ const MixLiquids = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-200 dark:from-black dark:to-gray-800">
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent mb-4">
+          <h1 className={`text-5xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
             {t('mix.title')}
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className={`text-xl max-w-3xl mx-auto ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
             {t('mix.smartSuggestions')}
           </p>
         </div>
 
         {/* Tab Navigation */}
         <div className="flex justify-center mb-12">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-2 shadow-lg">
+          <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-2xl p-2 shadow-lg`}>
             <button
               onClick={() => setActiveTab('suggestions')}
               className={`px-8 py-3 rounded-xl transition-all duration-300 flex items-center gap-2 ${
                 activeTab === 'suggestions' 
                   ? 'bg-gradient-to-r from-gray-800 to-black text-white shadow-lg transform scale-105' 
-                  : 'text-gray-600 dark:text-gray-300 hover:text-primary'
+                  : `${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} hover:text-blue-500`
               }`}
             >
               <FaLightbulb className="text-lg" />
@@ -322,7 +324,7 @@ const MixLiquids = () => {
               className={`px-8 py-3 rounded-xl transition-all duration-300 flex items-center gap-2 ${
                 activeTab === 'custom' 
                   ? 'bg-gradient-to-r from-gray-800 to-black text-white shadow-lg transform scale-105' 
-                  : 'text-gray-600 dark:text-gray-300 hover:text-primary'
+                  : `${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} hover:text-blue-500`
               }`}
             >
               <FaFlask className="text-lg" />
@@ -334,7 +336,7 @@ const MixLiquids = () => {
         {/* Error Display */}
         {error && (
           <div className="max-w-4xl mx-auto mb-8">
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 px-6 py-4 rounded-xl shadow-lg">
+            <div className={`${theme === 'dark' ? 'bg-red-900/20 border-red-800 text-red-300' : 'bg-red-50 border-red-200 text-red-700'} border px-6 py-4 rounded-xl shadow-lg`}>
               <div className="flex items-center gap-3">
                 <FaExclamationTriangle className="text-xl" />
                 <span className="font-medium">{error}</span>
@@ -346,8 +348,8 @@ const MixLiquids = () => {
         {activeTab === 'suggestions' ? (
           <div className="max-w-6xl mx-auto">
             {/* Suggestions Form */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8 border border-gray-100 dark:border-gray-700">
-              <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">
+            <div className={`${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} rounded-2xl shadow-xl p-8 mb-8 border`}>
+              <h2 className={`text-3xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                 {t('mix.tellUsWhat')}
               </h2>
               
