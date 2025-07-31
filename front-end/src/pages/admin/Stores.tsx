@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 import axios from 'axios';
 
+const getSrc = (img: string) => img.startsWith('/uploads/') ? `http://localhost:5000${img}` : img;
+
 interface Store {
   _id: string;
   name: string;
@@ -144,8 +146,12 @@ const AdminStores = () => {
                       <div className="h-10 w-10 flex-shrink-0">
                         <img
                           className="h-10 w-10 rounded-full object-cover"
-                          src={store.image || '/images/default-store.jpg'}
+                          src={store.image ? getSrc(store.image) : 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=100&h=100&fit=crop'}
                           alt={store.name}
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=100&h=100&fit=crop';
+                          }}
                         />
                       </div>
                       <div className="ml-4">

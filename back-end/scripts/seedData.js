@@ -47,21 +47,21 @@ const storesData = [
     location: '123 Main Street, Downtown',
     phone: '+1-555-0123',
     workingHours: '9:00 AM - 10:00 PM',
-    image: '/uploads/images/store1.jpg'
+    image: 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=400&h=300&fit=crop'
   },
   {
     name: 'Cloud Vape Shop',
     location: '456 Oak Avenue, Midtown',
     phone: '+1-555-0456',
     workingHours: '10:00 AM - 11:00 PM',
-    image: '/uploads/images/store2.jpg'
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop'
   },
   {
     name: 'Premium Vape Center',
     location: '789 Pine Street, Uptown',
     phone: '+1-555-0789',
     workingHours: '8:00 AM - 9:00 PM',
-    image: '/uploads/images/store3.jpg'
+    image: 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=400&h=300&fit=crop'
   }
 ];
 
@@ -72,7 +72,7 @@ const productsData = [
     description: 'Advanced pod mod with PnP coil system',
     price: 89.99,
     category: 'devices',
-    image: '/uploads/images/product1.jpg',
+    image: 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=400&h=300&fit=crop',
     inStock: 15,
     store: '', // Will be set after stores are created
     availability: []
@@ -82,7 +82,7 @@ const productsData = [
     description: 'Waterproof and shockproof dual battery mod',
     price: 129.99,
     category: 'devices',
-    image: '/uploads/images/product2.jpg',
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop',
     inStock: 8,
     store: '',
     availability: []
@@ -92,7 +92,7 @@ const productsData = [
     description: 'High-capacity sub-ohm tank with mesh coils',
     price: 45.99,
     category: 'atomizers',
-    image: '/uploads/images/product3.jpg',
+    image: 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=400&h=300&fit=crop',
     inStock: 25,
     store: '',
     availability: []
@@ -102,7 +102,7 @@ const productsData = [
     description: 'Premium organic cotton for rebuildable atomizers',
     price: 12.99,
     category: 'cotton',
-    image: '/uploads/images/product4.jpg',
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop',
     inStock: 50,
     store: '',
     availability: []
@@ -112,7 +112,7 @@ const productsData = [
     description: 'Delicious strawberry cream flavor, 30ml',
     price: 19.99,
     category: 'liquids',
-    image: '/uploads/images/product5.jpg',
+    image: 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=400&h=300&fit=crop',
     inStock: 30,
     store: '',
     availability: [],
@@ -125,7 +125,7 @@ const productsData = [
     description: 'Refreshing mint ice flavor, 60ml',
     price: 24.99,
     category: 'liquids',
-    image: '/uploads/images/product6.jpg',
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop',
     inStock: 20,
     store: '',
     availability: [],

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { FaFlask, FaSearch, FaFilter, FaStar, FaThermometerHalf, FaCandyCane, FaLayerGroup, FaPlus } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaFlask, FaSearch, FaFilter, FaStar, FaThermometerHalf, FaCandyCane, FaLayerGroup, FaPlus, FaStore } from 'react-icons/fa';
 import type { Liquid } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ALL_FRUITS } from '../data/fruitList';
@@ -48,6 +48,7 @@ const Liquids = () => {
   const [showFilters, setShowFilters] = useState(false);
   const { t, language } = useLanguage();
   const { dispatch } = useCart();
+  const [selectedLiquid, setSelectedLiquid] = useState<Liquid | null>(null);
 
   const categories = [
     { value: 'all', label: t('liquids.allCategories') },
@@ -404,14 +405,16 @@ const Liquids = () => {
             return (
               <div
                 key={liquid._id}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                onClick={() => setSelectedLiquid(liquid)}
               >
                 {/* Image */}
-                <div className="relative h-48">
+                <div className="relative flex items-center justify-center bg-gray-100 dark:bg-gray-900 aspect-[4/3] w-full">
                   <img
                     src={liquid.image.startsWith('/uploads/') ? `http://localhost:5000${liquid.image}` : liquid.image}
                     alt={liquid.name}
-                    className="w-full h-full object-cover"
+                    className="max-h-44 max-w-full object-contain"
+                    style={{ aspectRatio: '4/3' }}
                   />
                   <div className="absolute top-2 right-2">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getCompatibilityColor(analysis?.compatibility?.compatibleWith || [])}`}>
@@ -515,6 +518,142 @@ const Liquids = () => {
               </div>
             );
           })}
+        </div>
+      )}
+
+      {/* Modal for Liquid Details */}
+      {selectedLiquid && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-2 sm:p-4 z-50 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden shadow-2xl transform transition-all duration-500 scale-95 hover:scale-100 mx-4 animate-slideUp">
+            {/* Header with gradient background */}
+            <div className="relative bg-gradient-to-r from-primary to-primary/80 text-white p-6 rounded-t-2xl">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h2 className="text-3xl font-bold mb-2">{selectedLiquid.name}</h2>
+                  <div className="flex items-center text-white/90">
+                    <FaFlask className="mr-2" />
+                    <span className="text-sm">{t('liquids.premiumLiquid')}</span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setSelectedLiquid(null)}
+                  className="text-white/80 hover:text-white text-2xl font-bold transition-colors duration-200 hover:scale-110"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+              {/* Image Section */}
+              <div className="mb-4 sm:mb-6 relative group">
+                <div className="overflow-hidden rounded-xl shadow-lg bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800">
+                  <img
+                    src={selectedLiquid.image.startsWith('/uploads/') ? `http://localhost:5000${selectedLiquid.image}` : selectedLiquid.image}
+                    alt={selectedLiquid.name}
+                    className="w-full h-48 sm:h-64 object-contain transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
+              </div>
+
+              {/* Liquid Info Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-4 rounded-xl border border-blue-200 dark:border-blue-700">
+                  <div className="flex items-center mb-2">
+                    <div className="bg-blue-500 text-white p-2 rounded-lg mr-3">
+                      <span className="text-lg font-bold">{selectedLiquid.brand}</span>
+                    </div>
+                    <h3 className="font-semibold text-blue-800 dark:text-blue-200">{t('liquids.brand')}</h3>
+                  </div>
+                  <p className="text-blue-700 dark:text-blue-300 text-sm">{selectedLiquid.brand}</p>
+                </div>
+
+                <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-4 rounded-xl border border-green-200 dark:border-green-700">
+                  <div className="flex items-center mb-2">
+                    <div className="bg-green-500 text-white p-2 rounded-lg mr-3">
+                      <span className="text-lg font-bold">{selectedLiquid.nicotineLevel}mg</span>
+                    </div>
+                    <h3 className="font-semibold text-green-800 dark:text-green-200">{t('liquids.nicotineLevel')}</h3>
+                  </div>
+                  <p className="text-green-700 dark:text-green-300 text-sm">{selectedLiquid.nicotineLevel}mg</p>
+                </div>
+
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 p-4 rounded-xl border border-purple-200 dark:border-purple-700">
+                  <div className="flex items-center mb-2">
+                    <div className="bg-purple-500 text-white p-2 rounded-lg mr-3">
+                      <span className="text-lg font-bold">{selectedLiquid.volume}ml</span>
+                    </div>
+                    <h3 className="font-semibold text-purple-800 dark:text-purple-200">{t('liquids.volume')}</h3>
+                  </div>
+                  <p className="text-purple-700 dark:text-purple-300 text-sm">{selectedLiquid.volume}ml</p>
+                </div>
+
+                <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 p-4 rounded-xl border border-orange-200 dark:border-orange-700">
+                  <div className="flex items-center mb-2">
+                    <div className="bg-orange-500 text-white p-2 rounded-lg mr-3">
+                      <span className="text-lg font-bold">{selectedLiquid.baseRatio.vg}/{selectedLiquid.baseRatio.pg}</span>
+                    </div>
+                    <h3 className="font-semibold text-orange-800 dark:text-orange-200">{t('liquids.baseRatio')}</h3>
+                  </div>
+                  <p className="text-orange-700 dark:text-orange-300 text-sm">VG: {selectedLiquid.baseRatio.vg}% / PG: {selectedLiquid.baseRatio.pg}%</p>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                <h3 className="font-semibold text-gray-800 dark:text-white mb-2">{t('liquids.description')}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3 sm:line-clamp-none">{selectedLiquid.description}</p>
+              </div>
+
+              {/* Stores */}
+              <div className="mb-6">
+                <h3 className="font-semibold text-gray-800 dark:text-white mb-3">{t('liquids.availableInStores')}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {selectedLiquid.stores && selectedLiquid.stores.length > 0 ? (
+                    selectedLiquid.stores.map((store) => (
+                      <span key={store._id} className="inline-flex items-center px-3 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-200 dark:border-blue-700">
+                        <FaStore className="mr-2" />
+                        {store.name}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-gray-400 dark:text-gray-500 text-sm">{t('liquids.noStoresAvailable')}</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Price and Action Buttons */}
+              <div className="flex flex-col gap-3 mt-4 sm:mt-6">
+                <div className="flex-1 bg-gradient-to-r from-primary/10 to-primary/5 p-4 rounded-xl border border-primary/20">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-primary mb-1">{formatPrice(selectedLiquid.price, language)}</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-300">
+                      {selectedLiquid.inStock > 0 ? `${selectedLiquid.inStock} ${t('liquids.inStock')}` : t('liquids.outOfStock')}
+                    </div>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => addToCart(selectedLiquid)}
+                  disabled={selectedLiquid.inStock === 0}
+                  className="flex-1 bg-gradient-to-r from-primary to-primary/90 text-white py-4 px-6 rounded-xl hover:from-primary/90 hover:to-primary transition-all duration-300 flex items-center justify-center font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                >
+                  <FaPlus className="mr-3 text-xl" />
+                  <span className="text-lg">{t('liquids.addToCart')}</span>
+                </button>
+              </div>
+
+              {/* Additional Info */}
+              <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                <div className="flex items-center justify-center text-gray-600 dark:text-gray-300 text-sm">
+                  <FaFlask className="mr-2" />
+                  <span>{t('liquids.premiumQuality')}</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -280,9 +280,9 @@ body.dark {
 
 .vape-btn {
   position: relative;
-  overflow: hidden;
-}
-
+    overflow: hidden;
+  }
+  
 .vape-btn::before {
   content: '';
   position: absolute;
@@ -296,6 +296,96 @@ body.dark {
 
 .vape-btn:hover::before {
   left: 100%;
+}
+
+/* Loading screen smoke effects */
+@keyframes smokeRise {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.3);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-50px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-200px) scale(2);
+  }
+}
+
+@keyframes smokeFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(-5deg);
+  }
+}
+
+@keyframes loadingPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.smoke-rise {
+  animation: smokeRise 4s ease-out infinite;
+}
+
+.smoke-float {
+  animation: smokeFloat 6s ease-in-out infinite;
+}
+
+.loading-pulse {
+  animation: loadingPulse 2s ease-in-out infinite;
+}
+
+/* Dense smoke effects for loading screen */
+@keyframes denseSmoke {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2) translateY(-10px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2) translateY(-50px);
+  }
+}
+
+@keyframes smokeDrift {
+  0% {
+    transform: translateX(-50px) translateY(0px);
+  }
+  50% {
+    transform: translateX(50px) translateY(-30px);
+  }
+  100% {
+    transform: translateX(-50px) translateY(-60px);
+  }
+}
+
+.dense-smoke {
+  animation: denseSmoke 6s ease-out infinite;
+}
+
+.smoke-drift {
+  animation: smokeDrift 8s ease-in-out infinite;
 }
 
 /* Background smoke clouds */
@@ -567,4 +657,86 @@ p {
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
+}
+
+@keyframes scalein {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-scalein {
+  animation: scalein 0.3s cubic-bezier(0.4,0,0.2,1) both;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(0.95);
+  }
+}
+
+@keyframes blink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0; }
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.5s ease-out;
+}
+
+.animate-blink {
+  animation: blink 3s infinite;
+}
+
+.animate-wave {
+  animation: wave 2s ease-in-out infinite;
+}
+
+
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.line-clamp-none {
+  overflow: visible;
+  display: block;
+  -webkit-box-orient: unset;
+  -webkit-line-clamp: unset;
 }

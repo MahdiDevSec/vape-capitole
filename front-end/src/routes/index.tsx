@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'products', element: <Products /> },
       { path: 'products/:productId', element: <ProductDetail /> },
-      { path: 'products/vapekits', element: <VapeKits /> },
+      { path: 'products/vape-kits', element: <VapeKits /> },
       { path: 'products/vapeboxes', element: <VapeBoxes /> },
       { path: 'products/atomisers', element: <Atomisers /> },
       { path: 'products/pyrex', element: <Pyrex /> },

@@ -68,12 +68,14 @@ export const createProduct = async (req: Request, res: Response) => {
       data.image = `/uploads/${req.file.filename}`;
     }
     
-    // Handle availability array if not provided
-    if (!data.availability) {
-      data.availability = [{
-        storeId: data.store || '',
-        inStock: data.inStock > 0
-      }];
+    // Handle stores field - parse JSON string to array
+    if (typeof data.stores === 'string') {
+      try {
+        data.stores = JSON.parse(data.stores);
+      } catch (e) {
+        console.error('Error parsing stores:', e);
+        data.stores = [];
+      }
     }
     
     // Ensure inStock is a number
@@ -104,12 +106,14 @@ export const updateProduct = async (req: Request, res: Response) => {
       data.image = `/uploads/${req.file.filename}`;
     }
     
-    // Handle availability array if not provided
-    if (!data.availability && data.store) {
-      data.availability = [{
-        storeId: data.store,
-        inStock: data.inStock > 0
-      }];
+    // Handle stores field - parse JSON string to array
+    if (typeof data.stores === 'string') {
+      try {
+        data.stores = JSON.parse(data.stores);
+      } catch (e) {
+        console.error('Error parsing stores:', e);
+        data.stores = [];
+      }
     }
     
     const product = await Product.findByIdAndUpdate(

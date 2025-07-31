@@ -302,6 +302,10 @@ const AdminProducts = () => {
                           className="h-10 w-10 rounded-full object-cover"
                           src={getSrc(product.image)}
                           alt={product.name}
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=100&h=100&fit=crop';
+                          }}
                         />
                       </div>
                       <div className="ml-4">

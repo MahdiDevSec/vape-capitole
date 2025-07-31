@@ -10,7 +10,8 @@ import {
   FaSmoking,
   FaBoxOpen,
   FaCircle,
-  FaBolt
+  FaBolt,
+  FaStore
 } from 'react-icons/fa';
 import { GiAtom, GiGlassShot } from 'react-icons/gi';
 import type { Product } from '../types';
@@ -41,6 +42,7 @@ const Products = () => {
   const { dispatch } = useCart();
   const { t, language } = useLanguage();
   const { category } = useParams();
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   // Fetch products from backend
   useEffect(() => {
@@ -193,13 +195,19 @@ const Products = () => {
           {filteredAndSortedProducts.map((product) => (
             <div 
               key={product._id} 
-              className="modern-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+              className="modern-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
+              onClick={() => setSelectedProduct(product)}
             >
-              <div className="relative">
-                <img 
-                  src={getSrc(product.image)} 
+              <div className="relative flex items-center justify-center bg-gray-100 dark:bg-gray-900 aspect-[4/3] w-full">
+                <img
+                  src={getSrc(product.image)}
                   alt={product.name}
-                  className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                  className="max-h-44 max-w-full object-contain transition-transform duration-300"
+                  style={{ aspectRatio: '4/3' }}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=400&h=300&fit=crop';
+                  }}
                 />
                 <div className="absolute top-2 right-2">
                   <FavoriteButton item={product} />
@@ -249,6 +257,134 @@ const Products = () => {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Modal for Product Details */}
+      {selectedProduct && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-2 sm:p-4 z-50 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden shadow-2xl transform transition-all duration-500 scale-95 hover:scale-100 mx-4 animate-slideUp">
+            {/* Header with gradient background */}
+            <div className="relative bg-gradient-to-r from-primary to-primary/80 text-white p-6 rounded-t-2xl">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h2 className="text-3xl font-bold mb-2">{selectedProduct.name}</h2>
+                  <div className="flex items-center text-white/90">
+                    <FaShoppingCart className="mr-2" />
+                    <span className="text-sm">{t('product.premiumProduct')}</span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setSelectedProduct(null)}
+                  className="text-white/80 hover:text-white text-2xl font-bold transition-colors duration-200 hover:scale-110"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+              {/* Image Section */}
+              <div className="mb-4 sm:mb-6 relative group">
+                <div className="overflow-hidden rounded-xl shadow-lg bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800">
+                  <img
+                    src={getSrc(selectedProduct.image)}
+                    alt={selectedProduct.name}
+                    className="w-full h-48 sm:h-64 object-contain transition-transform duration-300 group-hover:scale-105"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = 'https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=400&h=300&fit=crop';
+                    }}
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
+              </div>
+
+              {/* Product Info Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-4 rounded-xl border border-blue-200 dark:border-blue-700">
+                  <div className="flex items-center mb-2">
+                    <div className="bg-blue-500 text-white p-2 rounded-lg mr-3">
+                      <span className="text-lg font-bold">{selectedProduct.category}</span>
+                    </div>
+                    <h3 className="font-semibold text-blue-800 dark:text-blue-200">{t('product.category')}</h3>
+                  </div>
+                  <p className="text-blue-700 dark:text-blue-300 text-sm">{selectedProduct.category}</p>
+                </div>
+
+                <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-4 rounded-xl border border-green-200 dark:border-green-700">
+                  <div className="flex items-center mb-2">
+                    <div className="bg-green-500 text-white p-2 rounded-lg mr-3">
+                      <span className="text-lg font-bold">{selectedProduct.inStock}</span>
+                    </div>
+                    <h3 className="font-semibold text-green-800 dark:text-green-200">{t('product.stock')}</h3>
+                  </div>
+                  <p className="text-green-700 dark:text-green-300 text-sm">
+                    {selectedProduct.inStock > 0 ? `${selectedProduct.inStock} ${t('product.inStock')}` : t('product.outOfStock')}
+                  </p>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                <h3 className="font-semibold text-gray-800 dark:text-white mb-2">{t('product.description')}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3 sm:line-clamp-none">{selectedProduct.description}</p>
+              </div>
+
+              {/* Stores */}
+              <div className="mb-6">
+                <h3 className="font-semibold text-gray-800 dark:text-white mb-3">{t('product.availableInStores')}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProduct.stores && selectedProduct.stores.length > 0 ? (
+                    selectedProduct.stores.map((storeId) => {
+                      const store = stores.find((s) => s._id === storeId);
+                      return store ? (
+                        <span key={storeId} className="inline-flex items-center px-3 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-200 dark:border-blue-700">
+                          <FaStore className="mr-2" />
+                          {store.name}
+                        </span>
+                      ) : null;
+                    })
+                  ) : (
+                    <span className="text-gray-400 dark:text-gray-500 text-sm">{t('product.noStoresAssigned')}</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Price and Action Buttons */}
+              <div className="flex flex-col gap-3 mt-4 sm:mt-6">
+                <div className="flex-1 bg-gradient-to-r from-primary/10 to-primary/5 p-4 rounded-xl border border-primary/20">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-primary mb-1">{formatPrice(selectedProduct.price, language)}</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-300">
+                      {selectedProduct.inStock > 0 ? `${selectedProduct.inStock} ${t('product.inStock')}` : t('product.outOfStock')}
+                    </div>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => {
+                    addToCart(selectedProduct);
+                    setSelectedProduct(null);
+                  }}
+                  disabled={selectedProduct.inStock === 0}
+                  className="flex-1 bg-gradient-to-r from-primary to-primary/90 text-white py-4 px-6 rounded-xl hover:from-primary/90 hover:to-primary transition-all duration-300 flex items-center justify-center font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                >
+                  <FaShoppingCart className="mr-3 text-xl" />
+                  <span className="text-lg">{t('product.addToCart')}</span>
+                </button>
+              </div>
+
+              {/* Additional Info */}
+              <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                <div className="flex items-center justify-center text-gray-600 dark:text-gray-300 text-sm">
+                  <FaShoppingCart className="mr-2" />
+                  <span>{t('product.premiumQuality')}</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

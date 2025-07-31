@@ -20,7 +20,34 @@ import {
 } from '../controllers/admin.controller';
 import { body } from 'express-validator';
 import multer from 'multer';
-const upload = multer({ dest: 'uploads/' });
+import path from 'path';
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    // Generate unique filename with original extension
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ 
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    // Check file type
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed!'));
+    }
+  },
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB limit
+  }
+});
 
 /**
  * @swagger
@@ -168,7 +195,7 @@ router.post(
     body('price').isFloat({ min: 0 }).withMessage('Price must be a positive number'),
     body('category').isIn(['vapekits', 'vapeboxes', 'atomisers', 'pyrex', 'batteries', 'accessories', 'cotton', 'coils', 'resistors', 'liquids', 'devices']).withMessage('Invalid category'),
     body('inStock').isInt({ min: 0 }).withMessage('Stock must be a positive integer'),
-    body('store').notEmpty().withMessage('Store is required')
+    body('stores').notEmpty().withMessage('Stores are required')
   ],
   handleValidationErrors,
   createProduct

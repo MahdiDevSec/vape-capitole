@@ -1,16 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
 import VapeIcon from '../components/VapeIcon';
 import LiquidBottle from '../components/LiquidBottle';
+import SmokeLoadingScreen from '../components/SmokeLoadingScreen';
 
 const Home = () => {
   const { t } = useLanguage();
   const { theme } = useTheme();
+  const [showLoading, setShowLoading] = useState(false);
+
+  useEffect(() => {
+    // Check if this is the first time visiting the site
+    const hasVisited = sessionStorage.getItem('hasVisitedHome');
+    
+    if (!hasVisited) {
+      setShowLoading(true);
+      sessionStorage.setItem('hasVisitedHome', 'true');
+    }
+    
+    // Listen for beforeunload event (refresh)
+    const handleBeforeUnload = () => {
+      sessionStorage.removeItem('hasVisitedHome');
+    };
+    
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  const handleLoadingComplete = () => {
+    setShowLoading(false);
+  };
 
   return (
-    <div className="relative min-h-screen">
+    <>
+      {showLoading && <SmokeLoadingScreen onLoadingComplete={handleLoadingComplete} />}
+      <div className="relative min-h-screen">
       {/* Main Content */}
       <div className="relative z-10">
         {/* Hero Section */}
@@ -18,7 +47,7 @@ const Home = () => {
           <div className="max-w-6xl mx-auto text-center">
             {/* Animated Vape Icon */}
             <div className="flex justify-center mb-8">
-              <VapeIcon size="lg" className="vape-float" />
+              <VapeIcon size="lg" />
             </div>
             
             <h1 className={`text-5xl md:text-7xl font-bold mb-6 vape-pulse ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
@@ -93,14 +122,14 @@ const Home = () => {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { name: 'Vape Kits', icon: '🔋', color: 'from-blue-500 to-cyan-500' },
-                { name: 'Liquids', icon: '💧', color: 'from-pink-500 to-purple-500' },
-                { name: 'Accessories', icon: '🛠️', color: 'from-green-500 to-emerald-500' },
-                { name: 'Stores', icon: '🏪', color: 'from-orange-500 to-red-500' },
+                { name: 'Vape Kits', icon: '🔋', color: 'from-blue-500 to-cyan-500', path: '/products/vape-kits' },
+                { name: 'Liquids', icon: '💧', color: 'from-pink-500 to-purple-500', path: '/liquids' },
+                { name: 'Accessories', icon: '🛠️', color: 'from-green-500 to-emerald-500', path: '/products/accessories' },
+                { name: 'Stores', icon: '🏪', color: 'from-orange-500 to-red-500', path: '/stores' },
               ].map((category, index) => (
                 <Link
                   key={index}
-                  to={`/${category.name.toLowerCase().replace(' ', '-')}`}
+                  to={category.path}
                   className={`modern-card ${theme === 'dark' ? 'bg-white/10' : 'bg-gray-100/80'} backdrop-blur-sm rounded-xl p-6 text-center hover:scale-105 transition-transform duration-300`}
                 >
                   <div className={`text-4xl mb-4 bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}>
@@ -116,6 +145,7 @@ const Home = () => {
         </section>
       </div>
     </div>
+    </>
   );
 };
 

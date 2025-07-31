@@ -19,7 +19,9 @@ const VapeKits = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
+        console.log('Fetching products from:', '/api/products/category/vapekits');
         const response = await axios.get('/api/products/category/vapekits');
+        console.log('Products response:', response.data);
         setProducts(response.data);
         setError('');
       } catch (err: any) {
@@ -113,9 +115,9 @@ const VapeKits = () => {
                 <div className="mt-4 flex items-center justify-between">
                   <span className="text-lg font-bold text-blue-600">{product.price?.toLocaleString('ar-DZ')} دج</span>
                   <span className="text-sm dark:text-gray-300">متوفر: {product.inStock} قطعة</span>
-                    {product.stores && (
+                    {product.stores && product.stores.length > 0 && (
                       <span className="text-xs text-gray-500 dark:text-gray-400 block mt-1">
-                        متوفر في الفروع: {product.stores.map(s=>s.name).join(', ')}
+                        متوفر في الفروع: {product.stores.length} فرع
                       </span>
                     )}
                 </div>
