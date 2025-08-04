@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { FaTrash, FaShoppingCart, FaPlus, FaMinus } from 'react-icons/fa';
 import { useCart } from '../contexts/CartContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const { state, dispatch } = useCart();
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const updateQuantity = (productId: string, quantity: number) => {
@@ -140,8 +142,8 @@ const Cart = () => {
                   </button>
                   <button 
                     onClick={() => {
-                      dispatch({ type: 'CLEAR_CART' });
                       setIsOpen(false);
+                      navigate('/checkout');
                     }}
                     className="flex-1 bg-primary text-white py-2 px-4 rounded hover:bg-primary/90 transition-colors"
                   >

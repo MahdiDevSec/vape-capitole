@@ -1,5 +1,5 @@
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { FaStore, FaBox, FaVial, FaUsers, FaChartBar, FaCog, FaUserPlus, FaSignOutAlt, FaShoppingCart, FaSun, FaMoon, FaGlobe, FaLanguage } from 'react-icons/fa';
+import { FaStore, FaBox, FaVial, FaUsers, FaChartBar, FaCog, FaUserPlus, FaSignOutAlt, FaShoppingCart, FaSun, FaMoon, FaGlobe, FaLanguage, FaRecycle } from 'react-icons/fa';
 import React, { useState } from 'react';
 import AdminRegModal from '../pages/admin/AdminReg';
 import { useAuth } from '../contexts/AuthContext';
@@ -115,6 +115,15 @@ const AdminLayout = () => {
               >
                 <FaShoppingCart />
                 Orders
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/used-products"
+                className="flex items-center gap-3 p-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
+              >
+                <FaRecycle />
+                {language === 'ar' ? 'المنتجات المستعملة' : 'Used Products'}
               </Link>
             </li>
             <li>

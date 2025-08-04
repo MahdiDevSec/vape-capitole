@@ -1,22 +1,30 @@
 import { Schema, model, Document } from 'mongoose';
 
 export interface IOrder extends Document {
-  user: Schema.Types.ObjectId;
+  user?: Schema.Types.ObjectId;
+  customerInfo: {
+    fullName: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    postalCode?: string;
+  };
   products: Array<{
     product: Schema.Types.ObjectId;
     quantity: number;
     price: number;
+    name: string;
+    image?: string;
   }>;
   totalAmount: number;
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
-  shippingAddress: {
-    street: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    country: string;
-  };
   paymentMethod: string;
+  paymentInfo?: {
+    cardholderName: string;
+    cardLastFour: string;
+    expiryDate: string;
+  };
   paymentStatus: 'pending' | 'paid' | 'failed';
   createdAt: Date;
   updatedAt: Date;
@@ -26,7 +34,33 @@ const orderSchema = new Schema<IOrder>({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: false
+  },
+  customerInfo: {
+    fullName: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true
+    },
+    phone: {
+      type: String,
+      required: true
+    },
+    address: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    postalCode: {
+      type: String,
+      required: false
+    }
   },
   products: [{
     product: {
@@ -43,6 +77,14 @@ const orderSchema = new Schema<IOrder>({
       type: Number,
       required: true,
       min: 0
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    image: {
+      type: String,
+      required: false
     }
   }],
   totalAmount: {
@@ -55,31 +97,23 @@ const orderSchema = new Schema<IOrder>({
     enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'],
     default: 'pending'
   },
-  shippingAddress: {
-    street: {
-      type: String,
-      required: true
-    },
-    city: {
-      type: String,
-      required: true
-    },
-    state: {
-      type: String,
-      required: true
-    },
-    zipCode: {
-      type: String,
-      required: true
-    },
-    country: {
-      type: String,
-      required: true
-    }
-  },
   paymentMethod: {
     type: String,
     required: true
+  },
+  paymentInfo: {
+    cardholderName: {
+      type: String,
+      required: false
+    },
+    cardLastFour: {
+      type: String,
+      required: false
+    },
+    expiryDate: {
+      type: String,
+      required: false
+    }
   },
   paymentStatus: {
     type: String,

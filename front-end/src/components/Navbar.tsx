@@ -22,6 +22,7 @@ const Navbar = () => {
     { path: '/liquids', label: t('nav.liquids') },
     { path: '/stores', label: t('nav.stores') },
     { path: '/mix', label: t('nav.mix') },
+    { path: '/used-products', label: t('nav.usedProducts') || 'منتجات مستعملة' },
   ];
 
   const productCategories = [
@@ -48,7 +49,7 @@ const Navbar = () => {
           </Link>
 
           {/* Navigation + Icons (كل شيء في نفس flex) */}
-          <div className="flex items-center gap-x-8">
+          <div className="hidden md:flex items-center gap-x-8">
             {/* الروابط */}
             {navItems.map((item) => (
               <Link
@@ -118,26 +119,27 @@ const Navbar = () => {
               {/* Vape smoke effect */}
               <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1 h-3 bg-pink-400/30 rounded-full vape-smoke opacity-0 group-hover:opacity-100" style={{animationDelay: '0.5s'}}></div>
             </Link>
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`md:hidden vape-btn p-2 rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} hover:bg-blue-100 transition-all duration-200 group`}
-            >
-              {isMenuOpen ? <FaTimes /> : <FaBars />}
-              {/* Vape smoke effect */}
-              <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1 h-3 bg-green-400/30 rounded-full vape-smoke opacity-0 group-hover:opacity-100" style={{animationDelay: '1s'}}></div>
-            </button>
           </div>
+          {/* زر القائمة يظهر فقط على الموبايل */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className={`md:hidden vape-btn p-2 rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} hover:bg-blue-100 transition-all duration-200 group ml-2`}
+          >
+            {isMenuOpen ? <FaTimes /> : <FaBars />}
+            {/* Vape smoke effect */}
+            <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1 h-3 bg-green-400/30 rounded-full vape-smoke opacity-0 group-hover:opacity-100" style={{animationDelay: '1s'}}></div>
+          </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className={`md:hidden ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} backdrop-blur-md rounded-lg mt-2 p-4`}>
+          <div className={`md:hidden ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} backdrop-blur-md rounded-lg mt-2 p-4 w-full shadow-lg z-50`}>
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block py-2 font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} hover:text-blue-400 transition-colors ${location.pathname === item.path ? 'text-blue-400' : ''}`}
+                className={`block py-3 font-semibold text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-900'} hover:text-blue-400 transition-colors ${location.pathname === item.path ? 'text-blue-400' : ''}`}
               >
                 {item.label}
               </Link>
@@ -146,7 +148,7 @@ const Navbar = () => {
             <div className="mt-4">
               <button
                 onClick={() => setIsProductsDropdownOpen(!isProductsDropdownOpen)}
-                className={`w-full text-left py-2 font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'} hover:text-blue-400 transition-colors flex items-center justify-between`}
+                className={`w-full text-left py-3 font-semibold text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-900'} hover:text-blue-400 transition-colors flex items-center justify-between`}
               >
                 {t('nav.products')}
                 <svg className={`w-4 h-4 transition-transform duration-200 ${isProductsDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,7 +156,7 @@ const Navbar = () => {
                 </svg>
               </button>
               {isProductsDropdownOpen && (
-                <div className="mt-2 ml-4 space-y-1">
+                <div className="mt-2 ml-4 space-y-2">
                   {productCategories.map((category) => (
                     <Link
                       key={category.path}
@@ -163,13 +165,39 @@ const Navbar = () => {
                         setIsProductsDropdownOpen(false);
                         setIsMenuOpen(false);
                       }}
-                      className={`block py-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'} hover:text-blue-400 transition-colors ${location.pathname === category.path ? 'text-blue-400' : ''}`}
+                      className={`block py-2 font-medium text-base ${theme === 'dark' ? 'text-white' : 'text-gray-900'} hover:text-blue-400 transition-colors ${location.pathname === category.path ? 'text-blue-400' : ''}`}
                     >
                       {category.label}
                     </Link>
                   ))}
                 </div>
               )}
+            </div>
+            {/* أيقونات في الأسفل */}
+            <div className="flex justify-around mt-6 gap-4">
+              <ThemeLanguageToggle />
+              <Link
+                to="/cart"
+                className={`vape-btn relative p-2 rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} hover:bg-blue-100 transition-all duration-200 group`}
+              >
+                <FaShoppingCart className="text-lg" />
+                {cartState.items && cartState.items.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center vape-pulse">
+                    {cartState.items.length}
+                  </span>
+                )}
+              </Link>
+              <Link
+                to="/favorites"
+                className={`vape-btn relative p-2 rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} hover:bg-pink-100 transition-all duration-200 group`}
+              >
+                <FaHeart className="text-lg" />
+                {favoritesState.items && favoritesState.items.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center vape-pulse">
+                    {favoritesState.items.length}
+                  </span>
+                )}
+              </Link>
             </div>
           </div>
         )}

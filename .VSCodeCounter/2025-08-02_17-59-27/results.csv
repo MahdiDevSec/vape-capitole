@@ -1,0 +1,137 @@
+"filename", "language", "JavaScript", "Markdown", "JSON", "HTML", "TypeScript", "JSON with Comments", "PostCSS", "TypeScript JSX", "XML", "Properties", "comment", "blank", "total"
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\QUICK_START.md", "Markdown", 0, 77, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 93
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\README.md", "Markdown", 0, 183, 0, 0, 0, 0, 0, 0, 0, 0, 0, 49, 232
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\SMART_SYSTEM_README.md", "Markdown", 0, 156, 0, 0, 0, 0, 0, 0, 0, 0, 0, 44, 200
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\SMART_TRANSLATION_SYSTEM.md", "Markdown", 0, 209, 0, 0, 0, 0, 0, 0, 0, 0, 0, 62, 271
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\.env", "Properties", 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1, 5
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\adminManager.js", "JavaScript", 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 79
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\createAdmin.js", "JavaScript", 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 8, 47
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\front-end\src\components\ProtectedRoute.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\front-end\src\pages\admin\Dashboard.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\front-end\src\pages\admin\Login.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\nodemon.json", "JSON", 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\package-lock.json", "JSON", 0, 0, 2424, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2425
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\package.json", "JSON", 0, 0, 51, 0, 0, 0, 0, 0, 0, 0, 0, 1, 52
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\resetAdminPassword.js", "JavaScript", 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 24
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\scripts\analyzeRealLiquids.js", "JavaScript", 173, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 27, 217
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\scripts\clearLiquids.js", "JavaScript", 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 6, 71
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\scripts\findAdmin.js", "JavaScript", 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 26
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\scripts\realLiquidsAnalysis.json", "JSON", 0, 0, 854, 0, 0, 0, 0, 0, 0, 0, 0, 0, 854
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\scripts\seedData.js", "JavaScript", 151, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 13, 172
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\scripts\seedLiquids.js", "JavaScript", 508, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 22, 548
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\scripts\seedRealLiquids.js", "JavaScript", 199, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 21, 234
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\app.ts", "TypeScript", 0, 0, 0, 0, 71, 0, 0, 0, 0, 0, 6, 10, 87
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\controllers\admin.controller.ts", "TypeScript", 0, 0, 0, 0, 239, 0, 0, 0, 0, 0, 11, 26, 276
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\controllers\auth.controller.ts", "TypeScript", 0, 0, 0, 0, 118, 0, 0, 0, 0, 0, 1, 20, 139
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\controllers\liquid.controller.ts", "TypeScript", 0, 0, 0, 0, 468, 0, 0, 0, 0, 0, 49, 86, 603
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\controllers\mix.controller.ts", "TypeScript", 0, 0, 0, 0, 469, 0, 0, 0, 0, 0, 57, 100, 626
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\controllers\order.controller.ts", "TypeScript", 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 4, 13, 82
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\controllers\product.controller.ts", "TypeScript", 0, 0, 0, 0, 81, 0, 0, 0, 0, 0, 4, 5, 90
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\controllers\rating.controller.ts", "TypeScript", 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 2, 8, 53
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\controllers\store.controller.ts", "TypeScript", 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 2, 25
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\controllers\translation.controller.ts", "TypeScript", 0, 0, 0, 0, 238, 0, 0, 0, 0, 0, 12, 55, 305
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\middleware\auth.middleware.ts", "TypeScript", 0, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 8, 41
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\middleware\error.middleware.ts", "TypeScript", 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 5, 30
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\middleware\validation.middleware.ts", "TypeScript", 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 1, 13
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\models\liquid.model.ts", "TypeScript", 0, 0, 0, 0, 196, 0, 0, 0, 0, 0, 6, 5, 207
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\models\mix.model.ts", "TypeScript", 0, 0, 0, 0, 173, 0, 0, 0, 0, 0, 2, 5, 180
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\models\order.model.ts", "TypeScript", 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 4, 94
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\models\product.model.ts", "TypeScript", 0, 0, 0, 0, 106, 0, 0, 0, 0, 0, 2, 4, 112
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\models\store.model.ts", "TypeScript", 0, 0, 0, 0, 34, 0, 0, 0, 0, 0, 0, 3, 37
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\models\suggestionRating.model.ts", "TypeScript", 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 4, 19
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\models\translation.model.ts", "TypeScript", 0, 0, 0, 0, 52, 0, 0, 0, 0, 0, 1, 4, 57
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\models\user.model.ts", "TypeScript", 0, 0, 0, 0, 59, 0, 0, 0, 0, 0, 3, 7, 69
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\routes\admin.routes.ts", "TypeScript", 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 114, 15, 229
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\routes\auth.routes.ts", "TypeScript", 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 1, 7, 26
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\routes\liquid.routes.ts", "TypeScript", 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 8, 10, 46
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\routes\mix.routes.ts", "TypeScript", 0, 0, 0, 0, 45, 0, 0, 0, 0, 0, 6, 8, 59
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\routes\order.routes.ts", "TypeScript", 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 3, 5, 30
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\routes\product.routes.ts", "TypeScript", 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 5, 7, 21
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\routes\rating.routes.ts", "TypeScript", 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 1, 3, 10
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\routes\store.routes.ts", "TypeScript", 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 2, 4, 12
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\routes\translation.routes.ts", "TypeScript", 0, 0, 0, 0, 37, 0, 0, 0, 0, 0, 2, 4, 43
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\src\services\liquidAnalysis.service.ts", "TypeScript", 0, 0, 0, 0, 684, 0, 0, 0, 0, 0, 89, 127, 900
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\back-end\tsconfig.json", "JSON with Comments", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 1, 22
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\README.md", "Markdown", 0, 58, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 70
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\eslint.config.js", "JavaScript", 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 24
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\index.html", "HTML", 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 1, 17
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\package-lock.json", "JSON", 0, 0, 8929, 0, 0, 0, 0, 0, 0, 0, 0, 1, 8930
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\package.json", "JSON", 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 1, 41
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\postcss.config.cjs", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\postcss.config.js", "JavaScript", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\public\vite.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\App.css", "PostCSS", 0, 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 6, 43
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\App.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 35, 0, 0, 3, 7, 45
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\assets\react.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\AnimatedBackground.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 81, 0, 0, 9, 10, 100
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\Cart.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 147, 0, 0, 0, 7, 154
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\ErrorBoundary.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 0, 5, 55
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\FavoriteButton.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 6, 36
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\Footer.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 99, 0, 0, 6, 9, 114
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\LiquidBottle.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 43, 0, 0, 5, 6, 54
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\LoadingSpinner.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 30, 0, 0, 3, 6, 39
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\Navbar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 280, 0, 0, 13, 16, 309
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\ProtectedRoute.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 6, 20
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\Search.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 93, 0, 0, 0, 10, 103
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\SmokeLoadingScreen.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 112, 0, 0, 26, 21, 159
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\ThemeLanguageToggle.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 4, 6, 63
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\VapeButton.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 59, 0, 0, 0, 5, 64
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\components\VapeIcon.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 4, 6, 42
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\contexts\AuthContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 89, 0, 0, 8, 15, 112
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\contexts\CartContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 88, 0, 0, 0, 15, 103
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\contexts\FavoritesContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 10, 63
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\contexts\LanguageContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 985, 0, 0, 58, 69, 1112
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\contexts\ThemeContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 44, 0, 0, 2, 11, 57
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\data\fruitList.ts", "TypeScript", 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\data\index.ts", "TypeScript", 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 5, 131
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\index.css", "PostCSS", 0, 0, 0, 0, 0, 0, 612, 0, 0, 0, 25, 110, 747
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\layouts\AdminLayout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 159, 0, 0, 4, 9, 172
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\layouts\Layout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 4, 27
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\main.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 2, 14
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\Checkout.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 193, 0, 0, 4, 24, 221
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\Favorites.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 79, 0, 0, 0, 7, 86
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\Home.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 124, 0, 0, 10, 14, 148
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\Liquids.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 578, 0, 0, 31, 55, 664
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\MixLiquids.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 669, 0, 0, 19, 51, 739
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\Products.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 349, 0, 0, 15, 23, 387
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\StoreDetail.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 78, 0, 0, 0, 7, 85
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\StoreProducts.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 98, 0, 0, 3, 9, 110
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\Stores.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 249, 0, 0, 7, 9, 265
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\admin\AdminReg.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 6, 72
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\admin\Dashboard.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 111, 0, 0, 5, 13, 129
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\admin\Liquids.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 544, 0, 0, 24, 24, 592
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\admin\Login.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 145, 0, 0, 0, 10, 155
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\admin\Orders.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 273, 0, 0, 3, 14, 290
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\admin\Products.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 492, 0, 0, 7, 22, 521
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\admin\Settings.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 260, 0, 0, 5, 20, 285
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\admin\Stores.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 266, 0, 0, 2, 15, 283
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\admin\Translations.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 312, 0, 0, 3, 18, 333
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\admin\Users.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 199, 0, 0, 2, 11, 212
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\products\Accessories.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 121, 0, 0, 0, 9, 130
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\products\Atomisers.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 121, 0, 0, 0, 9, 130
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\products\Batteries.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 121, 0, 0, 0, 9, 130
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\products\Coils.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 121, 0, 0, 0, 9, 130
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\products\Cotton.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 121, 0, 0, 0, 9, 130
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\products\ProductDetail.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 101, 0, 0, 3, 6, 110
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\products\Pyrex.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 121, 0, 0, 0, 9, 130
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\products\Resistors.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 121, 0, 0, 0, 9, 130
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\products\VapeBoxes.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 121, 0, 0, 0, 9, 130
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\pages\products\VapeKits.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 128, 0, 0, 0, 10, 138
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\routes\index.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 81, 0, 0, 0, 2, 83
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\services\ratings.ts", "TypeScript", 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\services\translationService.ts", "TypeScript", 0, 0, 0, 0, 159, 0, 0, 0, 0, 0, 25, 35, 219
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\styles\mobile.css", "PostCSS", 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 6, 12, 71
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\types\index.ts", "TypeScript", 0, 0, 0, 0, 110, 0, 0, 0, 0, 0, 2, 8, 120
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\utils\currency.ts", "TypeScript", 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\utils\performance.ts", "TypeScript", 0, 0, 0, 0, 254, 0, 0, 0, 0, 0, 28, 47, 329
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\src\vite-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\tailwind.config.cjs", "JavaScript", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 13
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\tailwind.config.js", "JavaScript", 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 24
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\tsconfig.app.json", "JSON", 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 2, 3, 28
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\tsconfig.json", "JSON with Comments", 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 1, 8
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\tsconfig.node.json", "JSON", 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 2, 3, 26
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\front-end\vite.config.ts", "TypeScript", 0, 0, 0, 0, 31, 0, 0, 0, 0, 0, 1, 2, 34
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\package-lock.json", "JSON", 0, 0, 2047, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2048
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\package.json", "JSON", 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 1, 25
+"c:\Users\dell\OneDrive\Documents\vape\site-vape-v2\tailwind.config.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"Total", "-", 1303, 683, 14419, 16, 4264, 28, 702, 8974, 2, 4, 838, 1817, 33050

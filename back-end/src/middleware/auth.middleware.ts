@@ -38,3 +38,7 @@ export const adminMiddleware = async (req: AuthRequest, res: Response, next: Nex
     res.status(403).json({ message: 'Access denied' });
   }
 };
+
+// Aliases for consistency
+export const authenticateToken = authMiddleware;
+export const requireAdmin = adminMiddleware;

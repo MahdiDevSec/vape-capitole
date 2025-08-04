@@ -13,6 +13,7 @@ import mixRoutes from './routes/mix.routes';
 import ratingRoutes from './routes/rating.routes';
 import liquidRoutes from './routes/liquid.routes';
 import translationRoutes from './routes/translation.routes';
+import usedProductRoutes from './routes/usedProduct.routes';
 import { errorHandler } from './middleware/error.middleware';
 import { authMiddleware } from './middleware/auth.middleware';
 import swaggerUi from 'swagger-ui-express';
@@ -48,6 +49,7 @@ app.use('/api/mixes', mixRoutes);
 app.use('/api/ratings', ratingRoutes);
 app.use('/api/liquids', liquidRoutes);
 app.use('/api/translations', translationRoutes);
+app.use('/api/used-products', usedProductRoutes);
 
 // Serve uploaded files
 app.use('/uploads', express.static('uploads'));

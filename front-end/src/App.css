@@ -1,10 +1,18 @@
+html, body, #root {
+  overflow-x: hidden;
+}
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
-
+.App {
+  width: 100%;
+  max-width: 1280px; 
+  margin: 0 auto;
+  padding: 0;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
