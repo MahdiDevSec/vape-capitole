@@ -1,86 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { FaPlus, FaEdit, FaTrash, FaEye, FaSearch, FaFilter } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaEye, FaSearch, FaFilter, FaUpload, FaImage, FaSpinner } from 'react-icons/fa';
 import { GiCigarette, GiElectric } from 'react-icons/gi';
 import { BsBoxSeam } from 'react-icons/bs';
 import { useLanguage } from '../../contexts/LanguageContext';
+import usedProductService, { type UsedProduct } from '../../services/usedProductService';
 
-interface UsedProduct {
-  _id: string;
-  name: string;
-  nameAr: string;
-  image: string;
-  price: number;
-  originalPrice: number;
-  category: 'vape-kit' | 'box-vape' | 'atomizer';
-  condition: 'excellent' | 'good' | 'fair';
-  status: 'available' | 'sold' | 'reserved';
-  description: string;
-  descriptionAr: string;
-  seller: string;
-  rating: number;
-  views: number;
-  createdAt: string;
-}
 
-// بيانات وهمية للمنتجات المستعملة
-const usedProductsData: UsedProduct[] = [
-  {
-    _id: 'u1',
-    name: 'SMOK Alien 220W Kit',
-    nameAr: 'كيت سموك إيلين 220 واط',
-    image: '/uploads/used-vape-kit-1.jpg',
-    price: 15000,
-    originalPrice: 25000,
-    category: 'vape-kit',
-    condition: 'excellent',
-    status: 'available',
-    description: 'Complete vape kit with tank and coils, barely used',
-    descriptionAr: 'كيت فايب كامل مع التانك والكويلات، مستعمل قليلاً',
-    seller: 'أحمد محمد',
-    rating: 4.8,
-    views: 156,
-    createdAt: '2024-01-15'
-  },
-  {
-    _id: 'u2',
-    name: 'GeekVape Aegis Legend',
-    nameAr: 'جيك فايب إيجيس ليجند',
-    image: '/uploads/used-box-vape-1.jpg',
-    price: 12000,
-    originalPrice: 18000,
-    category: 'box-vape',
-    condition: 'good',
-    status: 'available',
-    description: 'Waterproof and shockproof box mod, great condition',
-    descriptionAr: 'بوكس مود مقاوم للماء والصدمات، حالة ممتازة',
-    seller: 'سارة أحمد',
-    rating: 4.5,
-    views: 89,
-    createdAt: '2024-01-10'
-  },
-  {
-    _id: 'u3',
-    name: 'Aspire Cleito Tank',
-    nameAr: 'تانك أسباير كليتو',
-    image: '/uploads/used-atomizer-1.jpg',
-    price: 4500,
-    originalPrice: 7000,
-    category: 'atomizer',
-    condition: 'good',
-    status: 'sold',
-    description: 'High-quality sub-ohm tank with excellent flavor',
-    descriptionAr: 'تانك عالي الجودة مع نكهة ممتازة',
-    seller: 'محمد علي',
-    rating: 4.2,
-    views: 234,
-    createdAt: '2024-01-08'
-  }
-];
 
 const AdminUsedProducts = () => {
   const { language } = useLanguage();
-  const [products, setProducts] = useState<UsedProduct[]>(usedProductsData);
-  const [filteredProducts, setFilteredProducts] = useState<UsedProduct[]>(usedProductsData);
+  const [products, setProducts] = useState<UsedProduct[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<UsedProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<UsedProduct | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -88,9 +20,14 @@ const AdminUsedProducts = () => {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
 
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>('');
+  const [uploading, setUploading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: '',
     nameAr: '',
+    nameFr: '',
     price: 0,
     originalPrice: 0,
     category: 'vape-kit' as 'vape-kit' | 'box-vape' | 'atomizer',
@@ -98,9 +35,45 @@ const AdminUsedProducts = () => {
     status: 'available' as 'available' | 'sold' | 'reserved',
     description: '',
     descriptionAr: '',
-    seller: '',
-    image: ''
+    descriptionFr: '',
+    seller: 'Admin',
+    sellerContact: 'admin@vape-capitole.com',
+    image: '',
+    images: [] as string[],
+    featured: false
   });
+
+  // Fetch used products from API
+  useEffect(() => {
+    fetchUsedProducts();
+  }, []);
+
+  const fetchUsedProducts = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await usedProductService.getUsedProducts({
+        sortBy: 'createdAt',
+        sortOrder: 'desc',
+        limit: 100
+      });
+      
+      if (response && response.products) {
+        setProducts(response.products);
+        setFilteredProducts(response.products);
+      } else {
+        setProducts([]);
+        setFilteredProducts([]);
+      }
+    } catch (err: any) {
+      console.error('Error fetching used products:', err);
+      setError('Failed to load used products');
+      setProducts([]);
+      setFilteredProducts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     let filtered = products;
@@ -128,10 +101,68 @@ const AdminUsedProducts = () => {
     setFilteredProducts(filtered);
   }, [searchTerm, categoryFilter, statusFilter, products, language]);
 
-  const handleAdd = () => {
+  // Handle image upload
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        alert('File size must be less than 5MB');
+        return;
+      }
+      
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file');
+        return;
+      }
+
+      setImageFile(file);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Upload image to server
+  const uploadImage = async (): Promise<string> => {
+    if (!imageFile) return '';
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('image', imageFile);
+
+      const response = await fetch('http://localhost:5000/api/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+        },
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload image');
+      }
+
+      const data = await response.json();
+      return data.imageUrl || data.url || '';
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  // Reset form function
+  const resetForm = () => {
     setFormData({
       name: '',
       nameAr: '',
+      nameFr: '',
       price: 0,
       originalPrice: 0,
       category: 'vape-kit',
@@ -139,11 +170,21 @@ const AdminUsedProducts = () => {
       status: 'available',
       description: '',
       descriptionAr: '',
-      seller: '',
-      image: ''
+      descriptionFr: '',
+      seller: 'Admin',
+      sellerContact: 'admin@vape-capitole.com',
+      image: '',
+      images: [],
+      featured: false
     });
+    setImageFile(null);
+    setImagePreview('');
     setSelectedProduct(null);
     setIsEditing(false);
+  };
+
+  const handleAdd = () => {
+    resetForm();
     setIsModalOpen(true);
   };
 
@@ -151,6 +192,7 @@ const AdminUsedProducts = () => {
     setFormData({
       name: product.name,
       nameAr: product.nameAr,
+      nameFr: product.nameFr || '',
       price: product.price,
       originalPrice: product.originalPrice,
       category: product.category,
@@ -158,43 +200,77 @@ const AdminUsedProducts = () => {
       status: product.status,
       description: product.description,
       descriptionAr: product.descriptionAr,
+      descriptionFr: product.descriptionFr || '',
       seller: product.seller,
-      image: product.image
+      sellerContact: product.sellerContact || 'admin@vape-capitole.com',
+      image: product.image,
+      images: product.images || [],
+      featured: product.featured || false
     });
+    setImagePreview(product.image);
     setSelectedProduct(product);
     setIsEditing(true);
     setIsModalOpen(true);
   };
 
-  const handleDelete = (productId: string) => {
-    if (window.confirm(language === 'ar' ? 'هل أنت متأكد من حذف هذا المنتج؟' : 'Are you sure you want to delete this product?')) {
-      setProducts(products.filter(p => p._id !== productId));
+  // Handle delete with proper API call
+  const handleDelete = async (productId: string) => {
+    if (!window.confirm(language === 'ar' ? 'هل أنت متأكد من حذف هذا المنتج؟' : 'Are you sure you want to delete this product?')) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await usedProductService.deleteUsedProduct(productId);
+      await fetchUsedProducts(); // Refresh the list to ensure deletion is persistent
+    } catch (error: any) {
+      console.error('Error deleting product:', error);
+      setError(error.message || 'Failed to delete product');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (isEditing && selectedProduct) {
-      // Update existing product
-      setProducts(products.map(p => 
-        p._id === selectedProduct._id 
-          ? { ...p, ...formData }
-          : p
-      ));
-    } else {
-      // Add new product
-      const newProduct: UsedProduct = {
-        _id: 'u' + Date.now(),
+    try {
+      setLoading(true);
+      
+      let imageUrl = formData.image;
+      
+      // Upload image if selected
+      if (imageFile) {
+        imageUrl = await uploadImage();
+      }
+
+      const productData = {
         ...formData,
+        image: imageUrl,
+        images: imageUrl ? [imageUrl] : [],
         rating: 0,
         views: 0,
-        createdAt: new Date().toISOString()
+        featured: formData.featured || false
       };
-      setProducts([...products, newProduct]);
+
+      if (isEditing && selectedProduct) {
+        await usedProductService.updateUsedProduct(selectedProduct._id, productData);
+      } else {
+        await usedProductService.createUsedProduct(productData);
+      }
+
+      // Refresh products list
+      await fetchUsedProducts();
+      
+      // Reset form
+      resetForm();
+      setIsModalOpen(false);
+    } catch (error: any) {
+      console.error('Error saving product:', error);
+      setError(error.message || 'Failed to save product');
+    } finally {
+      setLoading(false);
     }
-    
-    setIsModalOpen(false);
   };
 
   const getStatusColor = (status: string) => {
@@ -528,6 +604,20 @@ const AdminUsedProducts = () => {
                   />
                 </div>
 
+                {/* Name French */}
+                <div>
+                  <label className="block text-sm font-medium mb-1 dark:text-white">
+                    {language === 'ar' ? 'الاسم (فرنسي)' : 'Name (French)'}
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.nameFr}
+                    onChange={(e) => setFormData({...formData, nameFr: e.target.value})}
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white"
+                    required
+                  />
+                </div>
+
                 {/* Price */}
                 <div>
                   <label className="block text-sm font-medium mb-1 dark:text-white">
@@ -619,18 +709,55 @@ const AdminUsedProducts = () => {
                 </div>
               </div>
 
-              {/* Image URL */}
-              <div>
+              {/* Image Upload */}
+              <div className="col-span-1 md:col-span-2">
                 <label className="block text-sm font-medium mb-1 dark:text-white">
-                  {language === 'ar' ? 'رابط الصورة' : 'Image URL'}
+                  {language === 'ar' ? 'صورة المنتج' : 'Product Image'}
                 </label>
-                <input
-                  type="text"
-                  value={formData.image}
-                  onChange={(e) => setFormData({...formData, image: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white"
-                  placeholder="/uploads/product-image.jpg"
-                />
+                
+                {/* Image Preview */}
+                {imagePreview && (
+                  <div className="mb-4">
+                    <img 
+                      src={imagePreview} 
+                      alt="Preview" 
+                      className="w-32 h-32 object-cover rounded-lg border border-gray-300 dark:border-gray-600"
+                    />
+                  </div>
+                )}
+                
+                {/* File Upload */}
+                <div className="flex items-center gap-4">
+                  <label className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg cursor-pointer transition-colors">
+                    <FaUpload />
+                    {uploading ? (
+                      <>
+                        <FaSpinner className="animate-spin" />
+                        {language === 'ar' ? 'جاري الرفع...' : 'Uploading...'}
+                      </>
+                    ) : (
+                      language === 'ar' ? 'رفع صورة' : 'Upload Image'
+                    )}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="hidden"
+                      disabled={uploading}
+                    />
+                  </label>
+                  
+                  {/* Manual URL Input */}
+                  <div className="flex-1">
+                    <input
+                      type="text"
+                      value={formData.image}
+                      onChange={(e) => setFormData({...formData, image: e.target.value})}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white"
+                      placeholder={language === 'ar' ? 'أو أدخل رابط الصورة' : 'Or enter image URL'}
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Description */}
@@ -661,6 +788,20 @@ const AdminUsedProducts = () => {
                 />
               </div>
 
+              {/* Description French */}
+              <div>
+                <label className="block text-sm font-medium mb-1 dark:text-white">
+                  {language === 'ar' ? 'الوصف (فرنسي)' : 'Description (French)'}
+                </label>
+                <textarea
+                  value={formData.descriptionFr}
+                  onChange={(e) => setFormData({...formData, descriptionFr: e.target.value})}
+                  rows={3}
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white"
+                  required
+                />
+              </div>
+
               {/* Buttons */}
               <div className="flex justify-end gap-4 mt-6">
                 <button
@@ -672,15 +813,54 @@ const AdminUsedProducts = () => {
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md"
+                  disabled={loading || uploading}
+                  className="px-6 py-2 bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white rounded-lg font-medium flex items-center gap-2 transition-colors"
                 >
-                  {isEditing 
-                    ? (language === 'ar' ? 'تحديث' : 'Update')
-                    : (language === 'ar' ? 'إضافة' : 'Add')
-                  }
+                  {loading ? (
+                    <>
+                      <FaSpinner className="animate-spin" />
+                      {language === 'ar' ? 'جاري الحفظ...' : 'Saving...'}
+                    </>
+                  ) : (
+                    <>
+                      <FaImage />
+                      {isEditing 
+                        ? (language === 'ar' ? 'تحديث المنتج' : 'Update Product')
+                        : (language === 'ar' ? 'إضافة المنتج' : 'Add Product')
+                      }
+                    </>
+                  )}
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Loading Overlay */}
+      {loading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 flex items-center gap-3">
+            <FaSpinner className="animate-spin text-blue-500" size={24} />
+            <span className="text-lg dark:text-white">
+              {language === 'ar' ? 'جاري التحميل...' : 'Loading...'}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Error Message */}
+      {error && (
+        <div className="fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+          <div className="flex items-center gap-2">
+            <FaTrash />
+            <span>{error}</span>
+            <button 
+              onClick={() => setError(null)}
+              className="ml-2 text-red-200 hover:text-white"
+            >
+              ×
+            </button>
           </div>
         </div>
       )}
@@ -689,3 +869,5 @@ const AdminUsedProducts = () => {
 };
 
 export default AdminUsedProducts;
+
+

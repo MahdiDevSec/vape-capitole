@@ -123,11 +123,17 @@ export const createUsedProduct = async (req: Request, res: Response) => {
       finalDescriptionFr = await translateText(description, 'fr');
     }
 
+    // Handle image upload from multer
+    let finalImage = image;
+    if (req.file) {
+      finalImage = `/uploads/${req.file.filename}`;
+    }
+
     const product = new UsedProduct({
       name,
       nameAr: finalNameAr,
       nameFr: finalNameFr,
-      image,
+      image: finalImage,
       images: images || [],
       price,
       originalPrice,
@@ -155,6 +161,11 @@ export const updateUsedProduct = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
+
+    // Handle image upload from multer
+    if (req.file) {
+      updateData.image = `/uploads/${req.file.filename}`;
+    }
 
     // Auto-translate missing translations if main text is provided
     if (updateData.name && !updateData.nameAr) {

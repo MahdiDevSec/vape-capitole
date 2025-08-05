@@ -1,6 +1,6 @@
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { FaStore, FaBox, FaVial, FaUsers, FaChartBar, FaCog, FaUserPlus, FaSignOutAlt, FaShoppingCart, FaSun, FaMoon, FaGlobe, FaLanguage, FaRecycle } from 'react-icons/fa';
-import React, { useState } from 'react';
+import { FaStore, FaBox, FaVial, FaUsers, FaChartBar, FaCog, FaUserPlus, FaSignOutAlt, FaSun, FaMoon, FaGlobe, FaLanguage, FaRecycle } from 'react-icons/fa';
+import { useState } from 'react';
 import AdminRegModal from '../pages/admin/AdminReg';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
@@ -10,7 +10,7 @@ const AdminLayout = () => {
   const [showAdminReg, setShowAdminReg] = useState(false);
   const { logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -108,15 +108,7 @@ const AdminLayout = () => {
                 Users
               </Link>
             </li>
-            <li>
-              <Link
-                to="/admin/orders"
-                className="flex items-center gap-3 p-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
-              >
-                <FaShoppingCart />
-                Orders
-              </Link>
-            </li>
+
             <li>
               <Link
                 to="/admin/used-products"
@@ -178,3 +170,5 @@ const AdminLayout = () => {
 };
 
 export default AdminLayout;
+
+

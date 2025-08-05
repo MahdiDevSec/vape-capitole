@@ -119,3 +119,5 @@ const VapeAnimation: React.FC<VapeAnimationProps> = ({ className = '', size = 'm
 };
 
 export default VapeAnimation;
+
+

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes, FaShoppingCart, FaHeart, FaUser } from 'react-icons/fa';
+import { FaBars, FaTimes, FaHeart } from 'react-icons/fa';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
-import { useCart } from '../contexts/CartContext';
+
 import { useFavorites } from '../contexts/FavoritesContext';
 import VapeIcon from './VapeIcon';
 import ThemeLanguageToggle from './ThemeLanguageToggle';
@@ -11,7 +11,7 @@ import ThemeLanguageToggle from './ThemeLanguageToggle';
 const Navbar = () => {
   const { t } = useLanguage();
   const { theme } = useTheme();
-  const { state: cartState } = useCart();
+
   const { state: favoritesState } = useFavorites();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
@@ -93,19 +93,7 @@ const Navbar = () => {
             </div>
             {/* الأيقونات (كل واحدة مباشرة في نفس flex) */}
             <ThemeLanguageToggle />
-            <Link
-              to="/cart"
-              className={`vape-btn relative p-2 rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} hover:bg-blue-100 transition-all duration-200 group`}
-            >
-              <FaShoppingCart className="text-lg" />
-              {cartState.items && cartState.items.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center vape-pulse">
-                  {cartState.items.length}
-                </span>
-              )}
-              {/* Vape smoke effect */}
-              <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-1 h-3 bg-red-400/30 rounded-full vape-smoke opacity-0 group-hover:opacity-100"></div>
-            </Link>
+
             <Link
               to="/favorites"
               className={`vape-btn relative p-2 rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} hover:bg-pink-100 transition-all duration-200 group`}
@@ -176,17 +164,7 @@ const Navbar = () => {
             {/* أيقونات في الأسفل */}
             <div className="flex justify-around mt-6 gap-4">
               <ThemeLanguageToggle />
-              <Link
-                to="/cart"
-                className={`vape-btn relative p-2 rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} hover:bg-blue-100 transition-all duration-200 group`}
-              >
-                <FaShoppingCart className="text-lg" />
-                {cartState.items && cartState.items.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center vape-pulse">
-                    {cartState.items.length}
-                  </span>
-                )}
-              </Link>
+
               <Link
                 to="/favorites"
                 className={`vape-btn relative p-2 rounded-lg ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-900'} hover:bg-pink-100 transition-all duration-200 group`}
@@ -207,3 +185,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+

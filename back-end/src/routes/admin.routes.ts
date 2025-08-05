@@ -7,8 +7,7 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
-  getOrders,
-  updateOrderStatus,
+
   changeAdminCredentials,
   addAdmin,
   updateUser,
@@ -215,11 +214,7 @@ router.put(
 );
 router.delete('/products/:id', adminMiddleware, deleteProduct);
 
-// Order Management
-router.get('/orders', adminMiddleware, getOrders);
-router.put('/orders/:id/status', adminMiddleware, [
-  body('status').isIn(['pending', 'processing', 'shipped', 'delivered', 'cancelled']).withMessage('Invalid status')
-], handleValidationErrors, updateOrderStatus);
+
 
 // Admin Management
 router.post('/add-admin', adminMiddleware, addAdmin);

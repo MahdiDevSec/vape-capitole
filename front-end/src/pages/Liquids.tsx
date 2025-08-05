@@ -3,7 +3,7 @@ import { FaFlask, FaSearch, FaFilter, FaStar, FaThermometerHalf, FaCandyCane, Fa
 import type { Liquid } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ALL_FRUITS } from '../data/fruitList';
-import { useCart } from '../contexts/CartContext';
+
 import axios from 'axios';
 import { formatPrice } from '../utils/currency';
 
@@ -47,7 +47,7 @@ const Liquids = () => {
   const [sortBy, setSortBy] = useState('name');
   const [showFilters, setShowFilters] = useState(false);
   const { t, language } = useLanguage();
-  const { dispatch } = useCart();
+
   const [selectedLiquid, setSelectedLiquid] = useState<Liquid | null>(null);
 
   const categories = [
@@ -129,21 +129,7 @@ const Liquids = () => {
     setFilteredLiquids(filtered);
   };
 
-  const addToCart = (liquid: Liquid) => {
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: {
-        _id: liquid._id,
-        name: liquid.name,
-        description: `${liquid.volume}ml, ${liquid.nicotineLevel}mg nicotine`,
-        price: liquid.price,
-        image: liquid.image,
-        category: 'liquids',
-        inStock: liquid.inStock,
-        store: liquid.store
-      }
-    });
-  };
+
 
   const getFlavorIcon = (flavor: string) => {
     switch (flavor) {
@@ -492,7 +478,7 @@ const Liquids = () => {
                       {formatPrice(liquid.price, language)}
                     </span>
                     <button
-                      onClick={() => addToCart(liquid)}
+                      
                       disabled={liquid.inStock === 0}
                       className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                     >
@@ -636,7 +622,7 @@ const Liquids = () => {
                 </div>
                 
                 <button
-                  onClick={() => addToCart(selectedLiquid)}
+                  
                   disabled={selectedLiquid.inStock === 0}
                   className="flex-1 bg-gradient-to-r from-primary to-primary/90 text-white py-4 px-6 rounded-xl hover:from-primary/90 hover:to-primary transition-all duration-300 flex items-center justify-center font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
@@ -661,3 +647,5 @@ const Liquids = () => {
 };
 
 export default Liquids;
+
+

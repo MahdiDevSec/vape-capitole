@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Cart from '../components/Cart';
+
 import AnimatedBackground from '../components/AnimatedBackground';
 
 const Layout = () => {
@@ -18,9 +18,11 @@ const Layout = () => {
         </div>
       </main>
       <Footer />
-      <Cart />
+
     </div>
   );
 };
 
 export default Layout;
+
+

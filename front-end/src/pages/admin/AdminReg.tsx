@@ -70,3 +70,5 @@ const AdminRegModal: React.FC<{ isOpen: boolean; onClose: () => void; onSuccess?
 };
 
 export default AdminRegModal; 
+
+

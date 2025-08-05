@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCogs } from 'react-icons/fa';
 import type { Product } from '../../types';
-import { useCart } from '../../contexts/CartContext';
+
 import FavoriteButton from '../../components/FavoriteButton';
 import { useLanguage } from '../../contexts/LanguageContext';
 import axios from 'axios';
@@ -12,7 +12,7 @@ const Accessories = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const { dispatch } = useCart();
+
   const { t } = useLanguage();
 
   useEffect(() => {
@@ -128,3 +128,5 @@ const Accessories = () => {
 };
 
 export default Accessories; 
+
+

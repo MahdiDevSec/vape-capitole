@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
-import { CartProvider } from './contexts/CartContext';
+
 import { FavoritesProvider } from './contexts/FavoritesContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { router } from './routes';
@@ -30,11 +30,9 @@ function App() {
     <ThemeProvider>
       <LanguageProvider>
         <AuthProvider>
-          <CartProvider>
-            <FavoritesProvider>
-              <RouterProvider router={router} />
-            </FavoritesProvider>
-          </CartProvider>
+          <FavoritesProvider>
+            <RouterProvider router={router} />
+          </FavoritesProvider>
         </AuthProvider>
       </LanguageProvider>
     </ThemeProvider>
@@ -42,3 +40,5 @@ function App() {
 }
 
 export default App;
+
+

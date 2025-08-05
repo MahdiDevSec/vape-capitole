@@ -1,12 +1,11 @@
 import { useFavorites } from '../contexts/FavoritesContext';
-import { useCart } from '../contexts/CartContext';
+
 import { useLanguage } from '../contexts/LanguageContext';
 import { FaShoppingCart, FaTrash } from 'react-icons/fa';
 
 const Favorites = () => {
   const { state: favoritesState, dispatch: favoritesDispatch } = useFavorites();
-  const { dispatch: cartDispatch } = useCart();
-  const { t } = useLanguage();
+    const { t } = useLanguage();
 
   const addToCart = (item: any) => {
     cartDispatch({
@@ -59,7 +58,7 @@ const Favorites = () => {
                 <div className="flex gap-2">
                   <button
                     className="flex-1 bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
-                    onClick={() => addToCart(item)}
+                    
                     disabled={item.inStock === 0}
                   >
                     <FaShoppingCart />
@@ -83,3 +82,5 @@ const Favorites = () => {
 };
 
 export default Favorites;
+
+

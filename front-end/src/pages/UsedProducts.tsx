@@ -1,116 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
-import { FaSearch, FaFilter, FaHeart, FaShoppingCart, FaEye, FaStar, FaSmokingBan } from 'react-icons/fa';
+import { FaSearch, FaHeart, FaShoppingCart, FaEye, FaStar } from 'react-icons/fa';
 import { GiElectric, GiCigarette } from 'react-icons/gi';
 import { BsBoxSeam } from 'react-icons/bs';
 import usedProductService, { type UsedProduct, type UsedProductFilters } from '../services/usedProductService';
-
-// بيانات وهمية للمنتجات المستعملة
-const usedProductsData: UsedProduct[] = [
-  {
-    _id: 'u1',
-    name: 'SMOK Alien 220W Kit',
-    nameAr: 'كيت سموك إيلين 220 واط',
-    image: '/uploads/used-vape-kit-1.jpg',
-    price: 15000,
-    originalPrice: 25000,
-    category: 'vape-kit',
-    condition: 'excellent',
-    status: 'available',
-    description: 'Complete vape kit with tank and coils, barely used',
-    descriptionAr: 'كيت فايب كامل مع التانك والكويلات، مستعمل قليلاً',
-    seller: 'أحمد محمد',
-    rating: 4.8,
-    views: 156,
-    createdAt: '2024-01-15'
-  },
-  {
-    _id: 'u2',
-    name: 'GeekVape Aegis Legend',
-    nameAr: 'جيك فايب إيجيس ليجند',
-    image: '/uploads/used-box-vape-1.jpg',
-    price: 12000,
-    originalPrice: 18000,
-    category: 'box-vape',
-    condition: 'good',
-    status: 'available',
-    description: 'Waterproof and shockproof box mod, great condition',
-    descriptionAr: 'بوكس مود مقاوم للماء والصدمات، حالة ممتازة',
-    seller: 'سارة أحمد',
-    rating: 4.5,
-    views: 89,
-    createdAt: '2024-01-10'
-  },
-  {
-    _id: 'u3',
-    name: 'Aspire Cleito Tank',
-    nameAr: 'تانك أسباير كليتو',
-    image: '/uploads/used-atomizer-1.jpg',
-    price: 4500,
-    originalPrice: 7000,
-    category: 'atomizer',
-    condition: 'good',
-    status: 'sold',
-    description: 'High-quality sub-ohm tank with excellent flavor',
-    descriptionAr: 'تانك عالي الجودة مع نكهة ممتازة',
-    seller: 'محمد علي',
-    rating: 4.2,
-    views: 234,
-    createdAt: '2024-01-08'
-  },
-  {
-    _id: 'u4',
-    name: 'Voopoo Drag 3 Kit',
-    nameAr: 'كيت فوبو دراج 3',
-    image: '/uploads/used-vape-kit-2.jpg',
-    price: 18000,
-    originalPrice: 28000,
-    category: 'vape-kit',
-    condition: 'excellent',
-    status: 'reserved',
-    description: 'Latest generation vape kit with advanced features',
-    descriptionAr: 'كيت فايب من الجيل الأحدث مع ميزات متقدمة',
-    seller: 'فاطمة حسن',
-    rating: 4.9,
-    views: 312,
-    createdAt: '2024-01-12'
-  },
-  {
-    _id: 'u5',
-    name: 'Lost Vape Centaurus',
-    nameAr: 'لوست فايب سنتوروس',
-    image: '/uploads/used-box-vape-2.jpg',
-    price: 22000,
-    originalPrice: 35000,
-    category: 'box-vape',
-    condition: 'excellent',
-    status: 'available',
-    description: 'Premium DNA chip box mod, like new condition',
-    descriptionAr: 'بوكس مود بريميوم بشريحة DNA، حالة كالجديد',
-    seller: 'خالد يوسف',
-    rating: 5.0,
-    views: 445,
-    createdAt: '2024-01-14'
-  },
-  {
-    _id: 'u6',
-    name: 'Uwell Crown 5 Tank',
-    nameAr: 'تانك يوويل كراون 5',
-    image: '/uploads/used-atomizer-2.jpg',
-    price: 6000,
-    originalPrice: 9500,
-    category: 'atomizer',
-    condition: 'good',
-    status: 'available',
-    description: 'Top-fill tank with mesh coils for great flavor',
-    descriptionAr: 'تانك بملء علوي مع كويلات شبكية للنكهة الرائعة',
-    seller: 'نور الدين',
-    rating: 4.6,
-    views: 178,
-    createdAt: '2024-01-09'
-  }
-];
 
 const categories = [
   { id: 'all', name: 'All Categories', nameAr: 'جميع الفئات', icon: FaSearch },
@@ -128,13 +22,56 @@ const conditions = [
 
 const UsedProducts = () => {
   const { t, language } = useLanguage();
-  const [products, setProducts] = useState<UsedProduct[]>(usedProductsData);
-  const [filteredProducts, setFilteredProducts] = useState<UsedProduct[]>(usedProductsData);
+  const [products, setProducts] = useState<UsedProduct[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<UsedProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedCondition, setSelectedCondition] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('newest');
 
+  // Fetch used products from API on component mount
+  useEffect(() => {
+    const fetchUsedProducts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Try to fetch used products with better error handling
+        const response = await usedProductService.getUsedProducts({
+          status: 'available', // Only show available products
+          sortBy: 'createdAt',
+          sortOrder: 'desc',
+          limit: 50 // Increase limit to show more products
+        });
+        
+        console.log('Used products response:', response);
+        
+        if (response && response.products) {
+          setProducts(response.products);
+          setFilteredProducts(response.products);
+        } else {
+          // If no products structure, try direct array
+          const productsArray = Array.isArray(response) ? response : [];
+          setProducts(productsArray);
+          setFilteredProducts(productsArray);
+        }
+      } catch (err: any) {
+        console.error('Error fetching used products:', err);
+        const errorMessage = err.response?.data?.message || err.message || 'Failed to load used products. Please try again later.';
+        setError(errorMessage);
+        setProducts([]);
+        setFilteredProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsedProducts();
+  }, []);
+
+  // Filter and sort products
   useEffect(() => {
     let filtered = products;
 
@@ -327,9 +264,38 @@ const UsedProducts = () => {
           })}
         </div>
 
+        {/* Loading State */}
+        {loading && (
+          <div className="flex justify-center items-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <span className="ml-3 text-lg dark:text-white">{t('common.loading')}</span>
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+            <p>{error}</p>
+          </div>
+        )}
+
+        {/* No Products Found */}
+        {!loading && !error && filteredProducts.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-6xl mb-4">📦</div>
+            <h3 className="text-xl font-semibold mb-2 dark:text-white">
+              {t('nav.usedProducts')} - {language === 'ar' ? 'لا توجد منتجات' : 'No Products Found'}
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              {language === 'ar' ? 'لم يتم العثور على منتجات مستعملة متاحة حالياً' : 'No used products are currently available'}
+            </p>
+          </div>
+        )}
+
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => (
+        {!loading && !error && filteredProducts.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredProducts.map((product) => (
             <div key={product._id} className="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               {/* Product Image */}
               <div className="relative">
@@ -416,22 +382,21 @@ const UsedProducts = () => {
               </div>
             </div>
           ))}
+          {filteredProducts.length === 0 && (
+            <div className="text-center py-12">
+              <GiCigarette className="mx-auto text-6xl text-gray-300 mb-4" />
+              <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-300 mb-2">
+                {language === 'ar' ? 'لا توجد منتجات' : 'No Products Found'}
+              </h3>
+              <p className="text-gray-500 dark:text-gray-400">
+                {language === 'ar' 
+                  ? 'جرب تغيير المرشحات أو البحث عن شيء آخر'
+                  : 'Try changing your filters or search for something else'
+                }
+              </p>
+            </div>
+          )}
         </div>
-
-        {/* No Results */}
-        {filteredProducts.length === 0 && (
-          <div className="text-center py-12">
-            <GiCigarette className="mx-auto text-6xl text-gray-300 mb-4" />
-            <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-300 mb-2">
-              {language === 'ar' ? 'لا توجد منتجات' : 'No Products Found'}
-            </h3>
-            <p className="text-gray-500 dark:text-gray-400">
-              {language === 'ar' 
-                ? 'جرب تغيير المرشحات أو البحث عن شيء آخر'
-                : 'Try changing your filters or search for something else'
-              }
-            </p>
-          </div>
         )}
 
         {/* Back to Shop */}
@@ -451,3 +416,5 @@ const UsedProducts = () => {
 };
 
 export default UsedProducts;
+
+

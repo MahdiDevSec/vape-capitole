@@ -22,6 +22,7 @@ const translations = {
     'nav.favorites': 'المفضلة',
     'nav.liquids': 'النكهات',
     'nav.mix': 'الخلط الذكي',
+    'nav.usedProducts': 'المنتجات المستعملة',
     
     // Categories
     'category.vape-kits': 'جهاز فايب متكامل',
@@ -248,7 +249,7 @@ const translations = {
     'admin.products': 'المنتجات',
     'admin.stores': 'المتاجر',
     'admin.users': 'المستخدمين',
-    'admin.orders': 'الطلبات',
+
     'admin.translations': 'الترجمات',
     'admin.settings': 'الإعدادات',
     'admin.addProduct': 'إضافة منتج',
@@ -361,6 +362,25 @@ const translations = {
     'common.selectStores': 'اختر المتاجر',
     'common.noStoresAvailable': 'لا توجد متاجر متاحة',
     'common.noStoresAssigned': 'لا توجد متاجر معينة',
+    
+
+    
+    // Used Products
+    'usedProducts.title': 'المنتجات المستعملة',
+    'usedProducts.subtitle': 'اعثر على منتجات فايب مستعملة بأسعار رائعة',
+    'usedProducts.condition': 'الحالة',
+    'usedProducts.excellent': 'ممتاز',
+    'usedProducts.good': 'جيد',
+    'usedProducts.fair': 'مقبول',
+    'usedProducts.seller': 'البائع',
+    'usedProducts.originalPrice': 'السعر الأصلي',
+    'usedProducts.discount': 'خصم',
+    'usedProducts.buyNow': 'اشتري الآن',
+    'usedProducts.sold': 'تم البيع',
+    'usedProducts.reserved': 'محجوز',
+    'usedProducts.available': 'متاح',
+    'usedProducts.noProducts': 'لا توجد منتجات مستعملة متاحة حالياً',
+    'usedProducts.adminOnly': 'المنتجات المضافة من الإدارة فقط',
   },
   en: {
     // Navigation
@@ -370,6 +390,7 @@ const translations = {
     'nav.favorites': 'Favorites',
     'nav.liquids': 'Liquids',
     'nav.mix': 'Smart Mix',
+    'nav.usedProducts': 'Used Products',
     
     // Categories
     'category.vape-kits': 'Complete Vape Device',
@@ -585,7 +606,7 @@ const translations = {
     'admin.products': 'Products',
     'admin.stores': 'Stores',
     'admin.users': 'Users',
-    'admin.orders': 'Orders',
+
     'admin.translations': 'Translations',
     'admin.settings': 'Settings',
     'admin.addProduct': 'Add Product',
@@ -698,6 +719,25 @@ const translations = {
     'common.selectStores': 'Select Stores',
     'common.noStoresAvailable': 'No stores available',
     'common.noStoresAssigned': 'No stores assigned',
+    
+
+    
+    // Used Products
+    'usedProducts.title': 'Used Products',
+    'usedProducts.subtitle': 'Find amazing used vape products at great prices',
+    'usedProducts.condition': 'Condition',
+    'usedProducts.excellent': 'Excellent',
+    'usedProducts.good': 'Good',
+    'usedProducts.fair': 'Fair',
+    'usedProducts.seller': 'Seller',
+    'usedProducts.originalPrice': 'Original Price',
+    'usedProducts.discount': 'Discount',
+    'usedProducts.buyNow': 'Buy Now',
+    'usedProducts.sold': 'Sold',
+    'usedProducts.reserved': 'Reserved',
+    'usedProducts.available': 'Available',
+    'usedProducts.noProducts': 'No used products available currently',
+    'usedProducts.adminOnly': 'Admin-added products only',
   },
   fr: {
     // Navigation
@@ -707,6 +747,7 @@ const translations = {
     'nav.favorites': 'Favoris',
     'nav.liquids': 'Liquides',
     'nav.mix': 'Mélange Intelligent',
+    'nav.usedProducts': 'Produits Usagés',
     
     // Categories
     'category.vape-kits': 'Appareil Vape Complet',
@@ -926,7 +967,7 @@ const translations = {
     'admin.products': 'Produits',
     'admin.stores': 'Magasins',
     'admin.users': 'Utilisateurs',
-    'admin.orders': 'Commandes',
+
     'admin.translations': 'Traductions',
     'admin.settings': 'Paramètres',
     'admin.addProduct': 'Ajouter un Produit',
@@ -1039,6 +1080,25 @@ const translations = {
     'common.selectStores': 'Sélectionner les Magasins',
     'common.noStoresAvailable': 'Aucun magasin disponible',
     'common.noStoresAssigned': 'Aucun magasin assigné',
+    
+
+    
+    // Used Products
+    'usedProducts.title': 'Produits Usagés',
+    'usedProducts.subtitle': 'Trouvez d\'incroyables produits vape usagés à prix avantageux',
+    'usedProducts.condition': 'État',
+    'usedProducts.excellent': 'Excellent',
+    'usedProducts.good': 'Bon',
+    'usedProducts.fair': 'Correct',
+    'usedProducts.seller': 'Vendeur',
+    'usedProducts.originalPrice': 'Prix Original',
+    'usedProducts.discount': 'Remise',
+    'usedProducts.buyNow': 'Acheter Maintenant',
+    'usedProducts.sold': 'Vendu',
+    'usedProducts.reserved': 'Réservé',
+    'usedProducts.available': 'Disponible',
+    'usedProducts.noProducts': 'Aucun produit usagé disponible actuellement',
+    'usedProducts.adminOnly': 'Produits ajoutés par l\'admin uniquement',
   }
 };
 
@@ -1109,3 +1169,5 @@ export const useLanguage = () => {
   }
   return context;
 };
+
+

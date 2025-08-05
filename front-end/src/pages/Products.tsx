@@ -2,20 +2,18 @@ import { useState, useMemo, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { 
   FaBox, 
-  FaCube, 
   FaFlask, 
   FaBatteryFull, 
   FaCogs,
   FaShoppingCart,
   FaSmoking,
-  FaBoxOpen,
   FaCircle,
   FaBolt,
   FaStore
 } from 'react-icons/fa';
 import { GiAtom, GiGlassShot } from 'react-icons/gi';
-import type { Product } from '../types';
-import { useCart } from '../contexts/CartContext';
+import type { Product, Store } from '../types';
+
 import FavoriteButton from '../components/FavoriteButton';
 import { useLanguage } from '../contexts/LanguageContext';
 import axios from 'axios';
@@ -36,31 +34,36 @@ const categories = [
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [products, setProducts] = useState<Product[]>([]);
+  const [stores, setStores] = useState<Store[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [sortBy, setSortBy] = useState('name-asc');
-  const { dispatch } = useCart();
+
   const { t, language } = useLanguage();
   const { category } = useParams();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // Fetch products from backend
+  // Fetch products and stores from backend
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/products');
-        setProducts(response.data);
+        const [productsResponse, storesResponse] = await Promise.all([
+          axios.get('/api/products'),
+          axios.get('/api/stores')
+        ]);
+        setProducts(productsResponse.data);
+        setStores(storesResponse.data);
         setError('');
       } catch (err: any) {
-        console.error('Error fetching products:', err);
-        setError(err?.response?.data?.message || 'Failed to fetch products');
+        console.error('Error fetching data:', err);
+        setError(err?.response?.data?.message || 'Failed to fetch data');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProducts();
+    fetchData();
   }, []);
 
   const filteredAndSortedProducts = useMemo(() => {
@@ -92,9 +95,7 @@ const Products = () => {
     }
   }, [products, selectedCategory, category, sortBy]);
 
-  const addToCart = (product: Product) => {
-    dispatch({ type: 'ADD_ITEM', payload: product });
-  };
+
 
   const getSrc = (img:string)=> img.startsWith('/uploads/')? `http://localhost:5000${img}`: img;
 
@@ -217,16 +218,11 @@ const Products = () => {
                 <div className="flex justify-between items-center mb-2 sm:mb-3">
                   <span className="text-base sm:text-lg font-bold text-primary">{formatPrice(product.price, language)}</span>
                   <span className={`text-xs px-2 py-1 rounded ${product.inStock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{product.inStock > 0 ? `${t('product.inStock')}: ${product.inStock}` : t('product.outOfStock')}</span>
-                  <span className="text-xs text-gray-500 block mt-1">{t('product.availableInStores')}: {product.stores ? product.stores.length : 0}</span>
                 </div>
-                <button
-                  onClick={() => addToCart(product)}
-                  disabled={product.inStock === 0}
-                  className="w-full bg-primary text-white py-2 px-3 sm:px-4 rounded-md hover:bg-primary/90 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center space-x-2 text-xs sm:text-base"
-                >
-                  <FaShoppingCart />
-                  <span>{t('product.addToCart')}</span>
-                </button>
+                <div className="mb-2 sm:mb-3">
+                  <span className="text-xs text-gray-500">{t('product.availableInStores')}: {product.stores ? product.stores.length : 0}</span>
+                </div>
+
               </div>
             </div>
           ))}
@@ -302,15 +298,12 @@ const Products = () => {
                 <h3 className="font-semibold text-gray-800 dark:text-white mb-2 sm:mb-3 text-xs sm:text-base">{t('product.availableInStores')}</h3>
                 <div className="flex flex-wrap gap-1 sm:gap-2">
                   {selectedProduct.stores && selectedProduct.stores.length > 0 ? (
-                    selectedProduct.stores.map((storeId) => {
-                      const store = stores.find((s) => s._id === storeId);
-                      return store ? (
-                        <span key={storeId} className="inline-flex items-center px-2 sm:px-3 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-200 dark:border-blue-700">
-                          <FaStore className="mr-1 sm:mr-2" />
-                          {store.name}
-                        </span>
-                      ) : null;
-                    })
+                    selectedProduct.stores.map((storeObj) => (
+                      <span key={storeObj._id} className="inline-flex items-center px-2 sm:px-3 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border border-blue-200 dark:border-blue-700">
+                        <FaStore className="mr-1 sm:mr-2" />
+                        {storeObj.name}
+                      </span>
+                    ))
                   ) : (
                     <span className="text-gray-400 dark:text-gray-500 text-xs sm:text-sm">{t('product.noStoresAssigned')}</span>
                   )}
@@ -324,17 +317,7 @@ const Products = () => {
                     <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{selectedProduct.inStock > 0 ? `${selectedProduct.inStock} ${t('product.inStock')}` : t('product.outOfStock')}</div>
                   </div>
                 </div>
-                <button
-                  onClick={() => {
-                    addToCart(selectedProduct);
-                    setSelectedProduct(null);
-                  }}
-                  disabled={selectedProduct.inStock === 0}
-                  className="flex-1 bg-gradient-to-r from-primary to-primary/90 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl hover:from-primary/90 hover:to-primary transition-all duration-300 flex items-center justify-center font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-xs sm:text-lg"
-                >
-                  <FaShoppingCart className="mr-2 sm:mr-3 text-base sm:text-xl" />
-                  <span>{t('product.addToCart')}</span>
-                </button>
+
               </div>
               {/* Additional Info */}
               <div className="mt-3 sm:mt-6 p-2 sm:p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
@@ -352,3 +335,5 @@ const Products = () => {
 };
 
 export default Products;
+
+

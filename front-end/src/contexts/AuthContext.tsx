@@ -52,7 +52,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (token && isAuth === 'true') {
         try {
           // التحقق من صحة التوكن مع الخادم
-          await axios.get('/api/auth/verify');
+          await axios.get('/api/auth/verify', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
           setIsAuthenticated(true);
         } catch (error) {
           // إذا كان التوكن غير صالح، قم بحذفه
@@ -109,3 +113,5 @@ export const useAuth = () => {
   }
   return context;
 };
+
+

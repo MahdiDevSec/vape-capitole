@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models/user.model';
 import { Product } from '../models/product.model';
-import { Order } from '../models/order.model';
+
 import { Store } from '../models/store.model';
 
 // تعريف نوع خاص ليدعم req.user
@@ -143,32 +143,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
-// Order Management
-export const getOrders = async (req: Request, res: Response) => {
-  try {
-    const orders = await Order.find().populate('user', 'name email');
-    res.json(orders);
-  } catch (error: any) {
-    res.status(500).json({ message: 'Error fetching orders', error: error?.message || 'Unknown error' });
-  }
-};
 
-export const updateOrderStatus = async (req: Request, res: Response) => {
-  try {
-    const { status } = req.body;
-    const order = await Order.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true, runValidators: true }
-    );
-    if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
-    }
-    res.json(order);
-  } catch (error: any) {
-    res.status(500).json({ message: 'Error updating order status', error: error?.message || 'Unknown error' });
-  }
-};
 
 export const changeAdminCredentials = async (req: AuthRequest, res: Response) => {
   try {

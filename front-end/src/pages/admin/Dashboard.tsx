@@ -1,20 +1,18 @@
 import { useEffect, useState } from 'react';
-import { FaUsers, FaBox, FaStore, FaShoppingCart } from 'react-icons/fa';
+import { FaUsers, FaBox, FaStore } from 'react-icons/fa';
 import axios from 'axios';
 
 interface DashboardStats {
   totalUsers: number;
   totalProducts: number;
   totalStores: number;
-  totalOrders: number;
 }
 
 const Dashboard = () => {
   const [stats, setStats] = useState<DashboardStats>({
     totalUsers: 0,
     totalProducts: 0,
-    totalStores: 0,
-    totalOrders: 0
+    totalStores: 0
   });
 
   useEffect(() => {
@@ -23,18 +21,17 @@ const Dashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const [usersRes, productsRes, storesRes, ordersRes] = await Promise.all([
-        axios.get('/api/admin/users'),
-        axios.get('/api/admin/products'),
-        axios.get('/api/admin/stores'),
-        axios.get('/api/admin/orders')
+      const token = localStorage.getItem('token');
+      const [usersRes, productsRes, storesRes] = await Promise.all([
+        axios.get('/api/admin/users', { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get('/api/admin/products', { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get('/api/admin/stores', { headers: { Authorization: `Bearer ${token}` } })
       ]);
 
       setStats({
         totalUsers: usersRes.data.length,
         totalProducts: productsRes.data.length,
-        totalStores: storesRes.data.length,
-        totalOrders: ordersRes.data.length
+        totalStores: storesRes.data.length
       });
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -85,18 +82,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Orders Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-              <div className="flex items-center">
-            <div className="p-3 rounded-full bg-orange-100 dark:bg-orange-900">
-              <FaShoppingCart className="h-6 w-6 text-orange-600 dark:text-orange-400" />
-            </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Orders</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">{stats.totalOrders}</p>
-            </div>
-          </div>
-        </div>
+
       </div>
 
       {/* Quick Actions */}
@@ -115,10 +101,7 @@ const Dashboard = () => {
             <FaStore className="h-8 w-8 mx-auto mb-2" />
             <span className="block text-sm font-medium">Manage Stores</span>
           </button>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white p-4 rounded-lg transition-colors">
-            <FaShoppingCart className="h-8 w-8 mx-auto mb-2" />
-            <span className="block text-sm font-medium">View Orders</span>
-          </button>
+
         </div>
       </div>
     </div>
@@ -126,3 +109,5 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
