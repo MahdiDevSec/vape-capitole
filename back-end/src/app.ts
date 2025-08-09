@@ -125,7 +125,8 @@ const corsOptions = {
       ? [
           'https://your-domain.com',
           // Allow direct calls from the deployed backend domain if needed
-          'https://back-end-i6q6.onrender.com'
+          'https://back-end-i6q6.onrender.com',
+          'https://vapecapitol.vercel.app'
         ] 
       : [
           'http://localhost:3000', 
