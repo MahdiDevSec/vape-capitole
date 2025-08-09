@@ -122,7 +122,11 @@ const corsOptions = {
     if (!origin) return callback(null, true);
     
     const allowedOrigins = process.env.NODE_ENV === 'production' 
-      ? ['https://your-domain.com'] 
+      ? [
+          'https://your-domain.com',
+          // Allow direct calls from the deployed backend domain if needed
+          'https://back-end-i6q6.onrender.com'
+        ] 
       : [
           'http://localhost:3000', 
           'http://127.0.0.1:3000', 
