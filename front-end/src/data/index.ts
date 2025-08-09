@@ -3,28 +3,28 @@ import type { Store, Product, Flavor, Liquid } from '../types';
 export const storesData: Store[] = [
   {
     id: '1',
-    name: 'Vape Capitole Pitonse',
+    name: 'VAPE CAPITOL Pitonse',
     location: 'Pitonse Region',
     phone: '+213 XX XX XX XX',
     workingHours: '9:00 - 21:00',
   },
   {
     id: '2',
-    name: 'Vape Capitole Nouval Ville 1',
+    name: 'VAPE CAPITOL Nouval Ville 1',
     location: 'Nouval Ville 1',
     phone: '+213 XX XX XX XX',
     workingHours: '9:00 - 21:00',
   },
   {
     id: '3',
-    name: 'Vape Capitole Ain Milia',
+    name: 'VAPE CAPITOL Ain Milia',
     location: 'Ain Milia Region',
     phone: '+213 XX XX XX XX',
     workingHours: '9:00 - 21:00',
   },
   {
     id: '4',
-    name: 'Vape Capitole Khenshla',
+    name: 'VAPE CAPITOL Khenshla',
     location: 'Khenshla Region',
     phone: '+213 XX XX XX XX',
     workingHours: '9:00 - 21:00',

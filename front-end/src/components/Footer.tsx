@@ -23,7 +23,7 @@ const Footer = () => {
           <div className="space-y-3 sm:space-y-4">
             <div className="flex items-center space-x-2">
               <VapeIcon size="sm" className="vape-float" />
-              <h3 className={`text-lg sm:text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Vape Capitole</h3>
+              <h3 className={`text-lg sm:text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>VAPE CAPITOL</h3>
             </div>
             <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{t('footer.subtitle')}</p>
             <div className="flex flex-wrap gap-2 sm:gap-4">
@@ -47,9 +47,9 @@ const Footer = () => {
           <div className="space-y-3 sm:space-y-4">
             <h4 className={`text-base sm:text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{t('footer.contact')}</h4>
             <div className={`space-y-1 sm:space-y-2 text-xs sm:text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}> 
-              <p>{t('footer.email')}: info@vape-capitole.com</p>
-              <p>{t('footer.phone')}: +213 XXX XXX XXX</p>
-              <p>Algiers, Algeria</p>
+              <p>{t('footer.email')}: ghazalibelil726@gmail.com</p>
+              <p>{t('footer.phone')}: +213 0656924054</p>
+              <p>Oum El Bouaghi, Algeria</p>
             </div>
           </div>
           {/* Newsletter */}
@@ -70,7 +70,7 @@ const Footer = () => {
         </div>
         {/* Bottom bar */}
         <div className={`border-t ${theme === 'dark' ? 'border-white/20' : 'border-gray-300'} mt-6 sm:mt-8 pt-6 sm:pt-8 text-center`}>
-          <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>© 2024 Vape Capitole. {t('footer.rights')}</p>
+          <p className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>© 2024 VAPE CAPITOL. {t('footer.rights')}</p>
         </div>
       </div>
     </footer>

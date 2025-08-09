@@ -35,8 +35,73 @@ import {
 import { SecurityMonitor } from './utils/security.utils';
 import { injectionProtectionMiddleware, sanitizationMiddleware } from './middleware/injection-protection.middleware';
 import { enhancedAuthMiddleware, enhancedAdminMiddleware } from './middleware/enhanced-auth.middleware';
+import multer from 'multer';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
 
 dotenv.config();
+
+// Ensure uploads directory exists
+const uploadsDir = path.join(__dirname, '..', 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Create uploads directory if it doesn't exist
+    const uploadDir = path.join(__dirname, '..', 'uploads');
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    cb(null, `${uuidv4()}${ext}`);
+  }
+});
+
+// Define allowed MIME types
+const allowedMimeTypes = [
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+  'image/webp',
+  'image/svg+xml'
+];
+
+const upload = multer({ 
+  storage,
+  limits: { 
+    fileSize: 10 * 1024 * 1024, // 10MB limit
+    files: 1
+  },
+  fileFilter: (req, file, cb) => {
+    try {
+      // Check MIME type
+      if (!allowedMimeTypes.includes(file.mimetype)) {
+        return cb(new Error(`Unsupported file type: ${file.mimetype}`));
+      }
+      
+      // Check file extension
+      const ext = path.extname(file.originalname).toLowerCase();
+      if (!['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'].includes(ext)) {
+        return cb(new Error(`Unsupported file extension: ${ext}`));
+      }
+      
+      return cb(null, true);
+    } catch (error) {
+      console.error('File filter error:', error);
+      if (error instanceof Error) {
+        return cb(error);
+      }
+      return cb(new Error('An unknown error occurred while processing the file'));
+    }
+  }
+});
 
 const app: Express = express();
 const port = process.env.PORT || 5000;
@@ -69,7 +134,7 @@ const corsOptions = {
           'http://127.0.0.1:5000'
         ];
     
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       console.log('Not allowed by CORS:', origin);
@@ -114,25 +179,118 @@ app.use(session({
   name: 'vape.sid' // Change default session name
 }));
 
-// Security monitoring and logging
+// Security middleware configuration
+// Note: Security middleware order is important
+
+// Serve static files with CORS headers
+app.use('/uploads', 
+  // Apply CORS with specific options for static files
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      
+      const allowedOrigins = process.env.NODE_ENV === 'production' 
+        ? ['https://your-domain.com'] 
+        : [
+            'http://localhost:5173', 
+            'http://127.0.0.1:5173',
+            'http://localhost:3000',
+            'http://127.0.0.1:3000'
+          ];
+      
+      if (allowedOrigins.some(allowed => origin.startsWith(allowed))) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'HEAD'],
+    credentials: true,
+    maxAge: 86400
+  }),
+  express.static('uploads', {
+    maxAge: '1d', // Cache for 1 day
+    etag: true,
+    setHeaders: (res) => {
+      // Allow cross-origin access to images and other static files
+      res.set('Cross-Origin-Resource-Policy', 'cross-origin');
+      res.set('Access-Control-Allow-Origin', process.env.NODE_ENV === 'production' 
+        ? 'https://your-domain.com' 
+        : '*');
+    }
+  })
+);
+
+// File upload route - No auth required as admin is already authenticated via session
+app.post('/api/upload', (req, res, next) => {
+  // Use multer's single file handler as middleware
+  upload.single('image')(req, res, function(err) {
+    if (err) {
+      console.error('File upload error:', err);
+      
+      // Handle different types of errors
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(413).json({
+          success: false,
+          message: 'File too large. Maximum size is 10MB.',
+          error: err.message
+        });
+      } else if (err.message?.includes('Unsupported file')) {
+        return res.status(415).json({
+          success: false,
+          message: 'Unsupported file type. Please upload a valid image file (JPG, PNG, GIF, WEBP, SVG).',
+          error: err.message
+        });
+      }
+      
+      return res.status(400).json({
+        success: false,
+        message: 'Error processing file upload',
+        error: err.message || 'Unknown error occurred'
+      });
+    }
+    
+    try {
+      if (!req.file) {
+        return res.status(400).json({ 
+          success: false,
+          message: 'No file uploaded or file is empty' 
+        });
+      }
+
+      console.log('File uploaded successfully:', req.file.filename);
+      
+      // Construct the full URL to the uploaded file
+      const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+      
+      res.status(200).json({
+        success: true,
+        message: 'File uploaded successfully',
+        imageUrl: fileUrl,
+        filename: req.file.filename
+      });
+    } catch (error: unknown) {
+      console.error('Error in upload handler:', error);
+      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+      res.status(500).json({
+        success: false,
+        message: 'Error processing file upload',
+        error: errorMessage
+      });
+    }
+  });
+});
+
+// Then apply security middleware to all other routes
 app.use(securityLogger);
-
-// IP filtering (if needed)
 app.use(ipFilter);
-
-// Injection Protection (SQL, NoSQL, XSS, Command Injection, Path Traversal)
 app.use(injectionProtectionMiddleware);
-
-// XSS Protection
 app.use(xssProtection);
-
-// Input Sanitization
 app.use(sanitizationMiddleware);
 
-// General rate limiting
+// Rate limiting for API routes
 app.use('/api', generalRateLimiter);
-
-// Strict rate limiting for auth endpoints
 app.use('/api/auth', authRateLimiter);
 
 // File upload security
@@ -140,13 +298,17 @@ app.use(fileUploadSecurity);
 
 // Security monitoring for suspicious activity
 app.use((req, res, next) => {
+  // Skip security checks for static files
+  if (req.path.startsWith('/uploads/')) {
+    return next();
+  }
+  
   if (SecurityMonitor.detectSuspiciousActivity(req)) {
     SecurityMonitor.logSecurityEvent('Suspicious Activity Detected', {
       ip: req.ip,
       url: req.originalUrl,
       method: req.method,
-      userAgent: req.headers['user-agent'],
-      body: req.body
+      userAgent: req.headers['user-agent']
     }, 'high');
     
     return res.status(403).json({ error: 'Suspicious activity detected' });
@@ -154,8 +316,13 @@ app.use((req, res, next) => {
   next();
 });
 
-// CSRF Protection for state-changing operations
+// CSRF Protection for state-changing operations (excluding auth and uploads)
 app.use('/api', (req, res, next) => {
+  // Skip CSRF protection for authentication routes and uploads
+  if (req.path.startsWith('/auth/') || req.path.startsWith('/uploads/')) {
+    return next();
+  }
+  
   if (['POST', 'PUT', 'DELETE', 'PATCH'].includes(req.method)) {
     return csrfProtection(req, res, next);
   }
@@ -179,14 +346,10 @@ app.use('/api/liquids', liquidRoutes);
 app.use('/api/translations', translationRoutes);
 app.use('/api/used-products', usedProductRoutes);
 
-// Serve uploaded files with security headers
-app.use('/uploads', (req, res, next) => {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  next();
-}, express.static('uploads', {
-  maxAge: 0,
-  etag: false
+// Serve uploaded files
+app.use('/uploads', express.static('uploads', {
+  maxAge: '1d', // Cache for 1 day
+  etag: true
 }));
 
 const swaggerOptions = {

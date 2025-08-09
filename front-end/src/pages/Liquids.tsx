@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { FaFlask, FaSearch, FaFilter, FaStar, FaThermometerHalf, FaCandyCane, FaLayerGroup, FaPlus, FaStore } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaFlask, FaSearch, FaFilter, FaThermometerHalf, FaCandyCane, FaLayerGroup, FaStore } from 'react-icons/fa';
 import type { Liquid } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ALL_FRUITS } from '../data/fruitList';
@@ -95,9 +95,15 @@ const Liquids = () => {
       );
     }
 
-    // Filter by category
+    // Filter by category - matches both category field and primary flavor
     if (selectedCategory !== 'all') {
-      filtered = filtered.filter(liquid => liquid.category === selectedCategory);
+      filtered = filtered.filter(liquid => {
+        const primaryFlavor = (liquid as any).analysis?.flavorProfile?.primary?.toLowerCase();
+        const category = liquid.category?.toLowerCase();
+        
+        // Check if either the category or primary flavor matches the selected category
+        return category === selectedCategory || primaryFlavor === selectedCategory;
+      });
     }
 
     // Filter by brand
@@ -472,19 +478,11 @@ const Liquids = () => {
                     </span>
                   </div>
 
-                  {/* Price and Add to Cart */}
+                  {/* Price */}
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-bold text-primary">
                       {formatPrice(liquid.price, language)}
                     </span>
-                    <button
-                      
-                      disabled={liquid.inStock === 0}
-                      className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-                    >
-                      <FaPlus />
-                      Add
-                    </button>
                   </div>
                   <div className="text-xs text-gray-500 mt-1">
                     {t('product.availableInStores')}: {liquid.stores ? liquid.stores.length : 0}
@@ -620,15 +618,6 @@ const Liquids = () => {
                     </div>
                   </div>
                 </div>
-                
-                <button
-                  
-                  disabled={selectedLiquid.inStock === 0}
-                  className="flex-1 bg-gradient-to-r from-primary to-primary/90 text-white py-4 px-6 rounded-xl hover:from-primary/90 hover:to-primary transition-all duration-300 flex items-center justify-center font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                >
-                  <FaPlus className="mr-3 text-xl" />
-                  <span className="text-lg">{t('liquids.addToCart')}</span>
-                </button>
               </div>
 
               {/* Additional Info */}

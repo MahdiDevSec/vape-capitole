@@ -65,6 +65,12 @@ interface MixAnalysis {
   recommendations: string[];
   score?: number;
   incompatiblePairs?: string[];
+  smartCompatibility?: {
+    conflicts: string[];
+    warnings: string[];
+    recommendations: string[];
+    compatibleFlavors: string[];
+  };
 }
 
 const MixLiquids = () => {
@@ -155,7 +161,23 @@ const MixLiquids = () => {
       }));
       
       const response = await axios.post('/api/mixes/analyze', { liquids: liquidsData });
-      setAnalysis(response.data);
+      const analysisData = response.data;
+      
+      // Process smart compatibility analysis if available
+      if (analysisData.smartCompatibility) {
+        const { conflicts, warnings, recommendations } = analysisData.smartCompatibility;
+        
+        // Show conflicts as errors
+        if (conflicts && conflicts.length > 0) {
+          setError(conflicts.join('\n'));
+        }
+        
+        // Merge warnings and recommendations
+        analysisData.warnings = [...(analysisData.warnings || []), ...(warnings || [])];
+        analysisData.recommendations = [...(analysisData.recommendations || []), ...(recommendations || [])];
+      }
+      
+      setAnalysis(analysisData);
     } catch (err: any) {
       console.error('Error analyzing mix:', err);
       setError(err?.response?.data?.message || t('mix.analysisFailed'));
@@ -647,55 +669,151 @@ const MixLiquids = () => {
                   {t('mix.mixAnalysis')}
                 </h3>
                 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                  <div className="space-y-4">
-                    <h4 className="text-xl font-semibold text-gray-800 dark:text-white">
-                      {t('mix.estimatedProfile')}
+                {/* Smart Compatibility Conflicts */}
+                {analysis.smartCompatibility?.conflicts && analysis.smartCompatibility.conflicts.length > 0 && (
+                  <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                    <h4 className="text-lg font-semibold text-red-700 dark:text-red-300 flex items-center gap-2 mb-2">
+                      <FaExclamationTriangle className="text-red-500" />
+                      {t('mix.compatibilityIssues')}
                     </h4>
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <span className="text-gray-600 dark:text-gray-300">{t('mix.menthol')}:</span>
-                        <span className="font-semibold text-gray-800 dark:text-white">
-                          {analysis.estimatedProfile.mentholLevel}/10
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <span className="text-gray-600 dark:text-gray-300">{t('mix.sweet')}:</span>
-                        <span className="font-semibold text-gray-800 dark:text-white">
-                          {analysis.estimatedProfile.sweetness}/10
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <span className="text-gray-600 dark:text-gray-300">{t('mix.complex')}:</span>
-                        <span className="font-semibold text-gray-800 dark:text-white">
-                          {analysis.estimatedProfile.complexity}/10
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                        <span className="text-gray-600 dark:text-gray-300">{t('mix.intensity')}:</span>
-                        <span className="font-semibold text-gray-800 dark:text-white">
-                          {analysis.estimatedProfile.intensity}/10
-                        </span>
+                    <ul className="space-y-1">
+                      {analysis.smartCompatibility?.conflicts?.map((conflict: string, index: number) => (
+                        <li key={index} className="text-red-600 dark:text-red-300 flex items-start gap-2">
+                          <span>⚠️</span>
+                          <span>{conflict}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-xl font-semibold mb-3 text-gray-800 dark:text-white">
+                        {t('mix.estimatedProfile')}
+                      </h4>
+                      <div className="space-y-3">
+                        <div>
+                          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
+                            <span>{t('mix.menthol')}</span>
+                            <span>{analysis.estimatedProfile.mentholLevel}/10</span>
+                          </div>
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 h-2.5 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-blue-500 rounded-full" 
+                              style={{ width: `${analysis.estimatedProfile.mentholLevel * 10}%` }}
+                            />
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
+                            <span>{t('mix.sweet')}</span>
+                            <span>{analysis.estimatedProfile.sweetness}/10</span>
+                          </div>
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 h-2.5 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-yellow-500 rounded-full" 
+                              style={{ width: `${analysis.estimatedProfile.sweetness * 10}%` }}
+                            />
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
+                            <span>{t('mix.complex')}</span>
+                            <span>{analysis.estimatedProfile.complexity}/10</span>
+                          </div>
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 h-2.5 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-purple-500 rounded-full" 
+                              style={{ width: `${analysis.estimatedProfile.complexity * 10}%` }}
+                            />
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
+                            <span>{t('mix.intensity')}</span>
+                            <span>{analysis.estimatedProfile.intensity}/10</span>
+                          </div>
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 h-2.5 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-red-500 rounded-full" 
+                              style={{ width: `${analysis.estimatedProfile.intensity * 10}%` }}
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
+                    
+                    {/* Compatible Flavors */}
+                    {analysis.smartCompatibility?.compatibleFlavors && analysis.smartCompatibility.compatibleFlavors.length > 0 && (
+                      <div>
+                        <h4 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">
+                          {t('mix.compatibleFlavors')}
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {analysis.smartCompatibility?.compatibleFlavors?.slice(0, 8).map((flavor: string, index: number) => (
+                            <span 
+                              key={index}
+                              className="px-3 py-1 text-sm bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-full"
+                            >
+                              {flavor}
+                            </span>
+                          ))}
+                          {analysis.smartCompatibility?.compatibleFlavors && analysis.smartCompatibility.compatibleFlavors.length > 8 && (
+                            <span className="text-xs text-gray-500 self-center">
+                              +{analysis.smartCompatibility.compatibleFlavors.length - 8} {t('mix.more')}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                   
-                  <div className="space-y-4">
-                    <h4 className="text-xl font-semibold text-gray-800 dark:text-white">
-                      {t('mix.compatibility')}
-                    </h4>
-                    <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                      {getCompatibilityIcon(analysis.compatibility)}
-                      <span className={`font-semibold ${getCompatibilityColor(analysis.compatibility)}`}>
-                        {t(`mix.${analysis.compatibility.toLowerCase()}`)}
-                      </span>
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-xl font-semibold mb-3 text-gray-800 dark:text-white">
+                        {t('mix.compatibility')}
+                      </h4>
+                      <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        {getCompatibilityIcon(analysis.compatibility)}
+                        <div>
+                          <span className={`block font-semibold text-lg ${getCompatibilityColor(analysis.compatibility)}`}>
+                            {t(`mix.${analysis.compatibility.toLowerCase()}`)}
+                          </span>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                            {t(`mix.${analysis.compatibility.toLowerCase()}Desc`)}
+                          </p>
+                        </div>
+                      </div>
                     </div>
+                    
+                    {/* Smart Warnings */}
+                    {analysis.smartCompatibility?.warnings && analysis.smartCompatibility.warnings.length > 0 && (
+                      <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                        <h4 className="text-lg font-semibold text-yellow-800 dark:text-yellow-200 flex items-center gap-2 mb-2">
+                          <FaExclamationTriangle className="text-yellow-500" />
+                          {t('mix.considerations')}
+                        </h4>
+                        <ul className="space-y-1">
+                          {analysis.smartCompatibility?.warnings?.map((warning: string, index: number) => (
+                            <li key={index} className="text-yellow-700 dark:text-yellow-300 flex items-start gap-2">
+                              <span>ℹ️</span>
+                              <span>{warning}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
 
                 {analysis.warnings.length > 0 && (
                   <div className="mb-6">
-                    <h4 className="text-xl font-semibold mb-4 text-red-600 flex items-center gap-2">
+                    <h4 className="text-xl font-semibold mb-4 text-red-600 dark:text-red-400 flex items-center gap-2">
                       <FaExclamationTriangle />
                       {t('mix.warnings')}
                     </h4>
@@ -711,19 +829,19 @@ const MixLiquids = () => {
                 )}
 
                 {analysis.recommendations.length > 0 && (
-                  <div>
-                    <h4 className="text-xl font-semibold mb-4 text-green-600 flex items-center gap-2">
-                      <FaCheck />
+                  <div className="mt-8">
+                    <h4 className="text-xl font-semibold mb-4 text-green-600 dark:text-green-400 flex items-center gap-2">
+                      <FaLightbulb className="text-yellow-500" />
                       {t('mix.recommendations')}
                     </h4>
-                    <ul className="space-y-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {analysis.recommendations.map((recommendation, index) => (
-                        <li key={index} className="flex items-start gap-2 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg text-green-700 dark:text-green-300">
-                          <FaCheck className="text-sm mt-0.5 flex-shrink-0" />
-                          <span>{recommendation}</span>
-                        </li>
+                        <div key={index} className="flex items-start gap-3 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                          <span className="text-yellow-500 text-lg">💡</span>
+                          <p className="text-green-700 dark:text-green-300">{recommendation}</p>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 )}
               </div>

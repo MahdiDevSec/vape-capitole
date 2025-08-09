@@ -12,7 +12,7 @@ import {
   FaStore
 } from 'react-icons/fa';
 import { GiAtom, GiGlassShot } from 'react-icons/gi';
-import type { Product, Store } from '../types';
+import type { Product } from '../types';
 
 import FavoriteButton from '../components/FavoriteButton';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -34,7 +34,6 @@ const categories = [
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [products, setProducts] = useState<Product[]>([]);
-  const [stores, setStores] = useState<Store[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [sortBy, setSortBy] = useState('name-asc');
@@ -48,12 +47,8 @@ const Products = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [productsResponse, storesResponse] = await Promise.all([
-          axios.get('/api/products'),
-          axios.get('/api/stores')
-        ]);
+        const productsResponse = await axios.get('/api/products');
         setProducts(productsResponse.data);
-        setStores(storesResponse.data);
         setError('');
       } catch (err: any) {
         console.error('Error fetching data:', err);
@@ -134,7 +129,7 @@ const Products = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-4 mb-6 sm:mb-8">
         <button
           onClick={() => setSelectedCategory('all')}
-          className={`p-3 sm:p-4 rounded-lg text-center transition-colors ${selectedCategory === 'all' ? 'bg-primary text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
+          className={`p-3 sm:p-4 rounded-lg text-center transition-colors ${selectedCategory === 'all' ? 'bg-primary text-white' : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white'}`}
         >
           <FaBox className="text-xl sm:text-2xl mx-auto mb-1 sm:mb-2" />
           <span className="text-xs sm:text-sm font-medium">{t('products.allCategories')}</span>
@@ -145,7 +140,7 @@ const Products = () => {
             <Link
               key={cat.id}
               to={`/products/${cat.id}`}
-              className={`p-3 sm:p-4 rounded-lg text-center transition-colors ${selectedCategory === cat.id ? 'bg-primary text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
+              className={`p-3 sm:p-4 rounded-lg text-center transition-colors ${selectedCategory === cat.id ? 'bg-primary text-white' : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white'}`}
             >
               <IconComponent className={`text-xl sm:text-2xl mx-auto mb-1 sm:mb-2 ${cat.color.replace('bg-', 'text-')}`} />
               <span className="text-xs sm:text-sm font-medium">{t(cat.name)}</span>
@@ -185,10 +180,10 @@ const Products = () => {
           {filteredAndSortedProducts.map((product) => (
             <div 
               key={product._id} 
-              className="modern-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
+              className="modern-card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700"
               onClick={() => setSelectedProduct(product)}
             >
-              <div className="relative flex items-center justify-center bg-gray-100 dark:bg-gray-900 aspect-[4/3] w-full">
+              <div className="relative flex items-center justify-center bg-gray-100 dark:bg-gray-700 aspect-[4/3] w-full transition-colors duration-300">
                 <img
                   src={getSrc(product.image)}
                   alt={product.name}
@@ -212,17 +207,21 @@ const Products = () => {
                   </span>
                 )}
               </div>
-              <div className="p-3 sm:p-4">
-                <h3 className="font-semibold text-base sm:text-lg mb-1 sm:mb-2 line-clamp-2">{product.name}</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3 line-clamp-2">{product.description}</p>
-                <div className="flex justify-between items-center mb-2 sm:mb-3">
-                  <span className="text-base sm:text-lg font-bold text-primary">{formatPrice(product.price, language)}</span>
-                  <span className={`text-xs px-2 py-1 rounded ${product.inStock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{product.inStock > 0 ? `${t('product.inStock')}: ${product.inStock}` : t('product.outOfStock')}</span>
+              <div className="p-3 sm:p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+                <h3 className="font-bold text-sm sm:text-base line-clamp-2 text-gray-900 dark:text-gray-100 mb-1 sm:mb-2">
+                  {product.name}
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-2 line-clamp-2">
+                  {product.description}
+                </p>
+                <div className="flex justify-between items-center mt-2">
+                  <span className="font-bold text-sm sm:text-base text-primary dark:text-primary-300">
+                    {formatPrice(product.price)}
+                  </span>
+                  <span className={`text-xs px-2 py-1 rounded-full transition-colors ${product.inStock > 0 ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'}`}>
+                    {product.inStock > 0 ? t('common.inStock') : t('common.outOfStock')}
+                  </span>
                 </div>
-                <div className="mb-2 sm:mb-3">
-                  <span className="text-xs text-gray-500">{t('product.availableInStores')}: {product.stores ? product.stores.length : 0}</span>
-                </div>
-
               </div>
             </div>
           ))}

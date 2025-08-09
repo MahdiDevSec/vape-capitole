@@ -170,10 +170,160 @@ export class LiquidAnalysisService {
       compatibility: this.calculateRealCompatibility(liquid),
       chemicalProfile: this.analyzeChemicalProfile(liquid),
       mixingRecommendations: this.generateRealMixingRecommendations(liquid),
-      autoAnalysis: this.performRealAutoAnalysis(liquid)
+      autoAnalysis: this.performRealAutoAnalysis(liquid),
+      // إضافة تحليل إضافي للتوافق الذكي
+      smartCompatibility: this.analyzeSmartCompatibility(liquid, autoProfile.detectedFlavors)
     };
 
     return analysis;
+  }
+
+  // تحليل توافق ذكي للنكهات
+  private static analyzeSmartCompatibility(liquid: ILiquid, detectedFlavors: string[]) {
+    const conflicts: string[] = [];
+    const warnings: string[] = [];
+    const recommendations: string[] = [];
+    
+    // تحقق من النكهات غير المتوافقة
+    const flavorConflicts = this.checkFlavorConflicts(detectedFlavors);
+    conflicts.push(...flavorConflicts);
+    
+    // تحقق من توافق نوع السائل (كريمي/فواكه)
+    if (liquid.type) {
+      const typeWarnings = this.checkLiquidTypeCompatibility(liquid.type, detectedFlavors);
+      warnings.push(...typeWarnings);
+    }
+    
+    // إنشاء توصيات ذكية
+    if (detectedFlavors.length > 0) {
+      const flavorRecs = this.generateSmartRecommendations(detectedFlavors);
+      recommendations.push(...flavorRecs);
+    }
+    
+    return {
+      conflicts,
+      warnings,
+      recommendations,
+      compatibleFlavors: this.getCompatibleFlavors(detectedFlavors)
+    };
+  }
+  
+  // التحقق من تعارضات النكهات
+  private static checkFlavorConflicts(flavors: string[]): string[] {
+    const conflicts: string[] = [];
+    const conflictPairs: {[key: string]: string[]} = {
+      // فواكه لا تتناسب مع بعضها
+      'strawberry': ['banana', 'coffee'],
+      'mango': ['chocolate', 'tobacco'],
+      'blueberry': ['coffee', 'tobacco'],
+      'apple': ['coffee', 'menthol'],
+      'watermelon': ['coffee', 'tobacco'],
+      'pineapple': ['milk', 'cream'],
+      'lemon': ['milk', 'cream', 'vanilla'],
+      'lime': ['milk', 'cream'],
+      // كريمة لا تتناسب مع النعناع
+      'cream': ['menthol', 'mint'],
+      'vanilla': ['menthol', 'mint'],
+      'milk': ['menthol', 'mint', 'lemon', 'lime'],
+      // تبغ لا يتناسب مع الفواكه الحمضية
+      'tobacco': ['lemon', 'lime', 'orange', 'pineapple']
+    };
+    
+    for (let i = 0; i < flavors.length; i++) {
+      for (let j = i + 1; j < flavors.length; j++) {
+        const flavor1 = flavors[i];
+        const flavor2 = flavors[j];
+        
+        if (conflictPairs[flavor1]?.includes(flavor2) || 
+            conflictPairs[flavor2]?.includes(flavor1)) {
+          conflicts.push(`${flavor1} لا يتناسب مع ${flavor2}`);
+        }
+      }
+    }
+    
+    return conflicts;
+  }
+  
+  // التحقق من توافق نوع السائل مع النكهات
+  private static checkLiquidTypeCompatibility(type: string, flavors: string[]): string[] {
+    const warnings: string[] = [];
+    
+    if (type === 'كريمي') {
+      const incompatibleFruits = ['lemon', 'lime', 'orange', 'pineapple'];
+      const hasIncompatibleFruit = flavors.some(flavor => 
+        incompatibleFruits.includes(flavor)
+      );
+      
+      if (hasIncompatibleFruit) {
+        warnings.push('تحذير: النكهات الحمضية قد لا تتناسب مع السوائل الكريمية');
+      }
+    }
+    
+    return warnings;
+  }
+  
+  // توليد توصيات ذكية للخلط
+  private static generateSmartRecommendations(flavors: string[]): string[] {
+    const recommendations: string[] = [];
+    const flavorEnhancers: {[key: string]: string[]} = {
+      'strawberry': ['vanilla', 'cream'],
+      'mango': ['coconut', 'peach'],
+      'blueberry': ['vanilla', 'cheesecake'],
+      'apple': ['cinnamon', 'caramel'],
+      'banana': ['hazelnut', 'caramel'],
+      'watermelon': ['mint', 'lime'],
+      'peach': ['vanilla', 'cream'],
+      'pineapple': ['coconut', 'mango'],
+      'grape': ['blueberry', 'blackberry'],
+      'orange': ['chocolate', 'almond'],
+      'lemon': ['lime', 'raspberry'],
+      'lime': ['mint', 'coconut'],
+      'vanilla': ['caramel', 'hazelnut'],
+      'chocolate': ['mint', 'orange'],
+      'coffee': ['vanilla', 'caramel'],
+      'tobacco': ['vanilla', 'caramel']
+    };
+    
+    for (const flavor of flavors) {
+      if (flavorEnhancers[flavor]) {
+        recommendations.push(
+          `جرب إضافة ${flavorEnhancers[flavor].join(' أو ')} مع ${flavor} لنتيجة أفضل`
+        );
+      }
+    }
+    
+    return recommendations;
+  }
+  
+  // الحصول على النكهات المتوافقة
+  private static getCompatibleFlavors(flavors: string[]): string[] {
+    const compatibleFlavors = new Set<string>();
+    const flavorCompatibility: {[key: string]: string[]} = {
+      'strawberry': ['vanilla', 'cream', 'cheesecake', 'kiwi', 'apple'],
+      'mango': ['peach', 'passionfruit', 'coconut', 'pineapple'],
+      'blueberry': ['vanilla', 'cheesecake', 'apple', 'blackberry'],
+      'apple': ['cinnamon', 'caramel', 'pear', 'grape'],
+      'banana': ['caramel', 'hazelnut', 'chocolate', 'peanut butter'],
+      'watermelon': ['strawberry', 'kiwi', 'lime', 'mint'],
+      'peach': ['apricot', 'vanilla', 'cream', 'raspberry'],
+      'pineapple': ['coconut', 'mango', 'passionfruit', 'orange'],
+      'grape': ['blueberry', 'blackberry', 'apple', 'pear'],
+      'orange': ['chocolate', 'almond', 'cranberry', 'pomegranate'],
+      'lemon': ['lime', 'raspberry', 'blueberry', 'elderflower'],
+      'lime': ['coconut', 'mint', 'passionfruit', 'mango'],
+      'vanilla': ['everything!', 'caramel', 'hazelnut', 'coffee'],
+      'chocolate': ['mint', 'orange', 'raspberry', 'peanut butter'],
+      'coffee': ['vanilla', 'caramel', 'hazelnut', 'chocolate'],
+      'tobacco': ['vanilla', 'caramel', 'hazelnut', 'whiskey']
+    };
+    
+    for (const flavor of flavors) {
+      if (flavorCompatibility[flavor]) {
+        flavorCompatibility[flavor].forEach(f => compatibleFlavors.add(f));
+      }
+    }
+    
+    return Array.from(compatibleFlavors);
   }
 
   // استخراج ملف النكهة الحقيقي

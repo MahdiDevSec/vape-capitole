@@ -44,7 +44,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-x-6 group">
             <VapeIcon size="sm" className="vape-float" />
             <span className="text-xl font-bold text-yellow-400 group-hover:text-yellow-300 transition-colors">
-              Vape Capitole
+              VAPE CAPITOL
             </span>
           </Link>
 

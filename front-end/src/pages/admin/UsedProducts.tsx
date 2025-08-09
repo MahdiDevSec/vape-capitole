@@ -134,23 +134,27 @@ const AdminUsedProducts = () => {
     try {
       const formData = new FormData();
       formData.append('image', imageFile);
-
+      
+      console.log('Attempting to upload image...');
+      
       const response = await fetch('http://localhost:5000/api/upload', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        },
+        // No headers needed - let the browser set Content-Type with boundary
+        credentials: 'include', // Include cookies for session
         body: formData
       });
 
       if (!response.ok) {
-        throw new Error('Failed to upload image');
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Upload failed:', response.status, errorData);
+        throw new Error(errorData.message || `Failed to upload image: ${response.statusText}`);
       }
 
       const data = await response.json();
+      console.log('Upload successful, response:', data);
       return data.imageUrl || data.url || '';
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error('Error in uploadImage:', error);
       throw error;
     } finally {
       setUploading(false);
